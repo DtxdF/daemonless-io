@@ -69,7 +69,7 @@ description: "Real-time version tracking for every Daemonless image. See which c
 | :material-check-circle:{ .current } | [tautulli](https://github.com/daemonless/tautulli/actions/workflows/build.yaml) | pkg | 2.16.0_1 |
 | :material-check-circle:{ .current } | [tautulli](https://github.com/daemonless/tautulli/actions/workflows/build.yaml) | pkg-latest | 2.16.0_1 |
 | :material-check-circle:{ .current } | [tautulli](https://github.com/daemonless/tautulli/actions/workflows/build.yaml) | latest | 2.16.1 |
-| :material-check-circle:{ .current } | [traefik](https://github.com/daemonless/traefik/actions/workflows/build.yaml) | pkg | 3.6.9_1 |
+| :material-close-circle:{ .outdated } | [traefik](https://github.com/daemonless/traefik/actions/workflows/build.yaml) | pkg | 3.6.9_1 → **3.6.10** |
 | :material-check-circle:{ .current } | [traefik](https://github.com/daemonless/traefik/actions/workflows/build.yaml) | pkg-latest | 3.6.9_1 |
 | :material-check-circle:{ .current } | [traefik](https://github.com/daemonless/traefik/actions/workflows/build.yaml) | latest | 3.6.10 |
 | :material-check-circle:{ .current } | [transmission](https://github.com/daemonless/transmission/actions/workflows/build.yaml) | pkg | 4.0.6_7 |
@@ -79,12 +79,12 @@ description: "Real-time version tracking for every Daemonless image. See which c
 | :material-check-circle:{ .current } | [unifi](https://github.com/daemonless/unifi/actions/workflows/build.yaml) | pkg | 10.0.160 |
 | :material-check-circle:{ .current } | [unifi](https://github.com/daemonless/unifi/actions/workflows/build.yaml) | pkg-latest | 10.1.85 |
 | :material-check-circle:{ .current } | [unifi](https://github.com/daemonless/unifi/actions/workflows/build.yaml) | latest | 10.1.85 |
-| :material-check-circle:{ .current } | [uptime-kuma](https://github.com/daemonless/uptime-kuma/actions/workflows/build.yaml) | latest | 2.2.0 |
+| :material-close-circle:{ .outdated } | [uptime-kuma](https://github.com/daemonless/uptime-kuma/actions/workflows/build.yaml) | latest | 2.2.0 → **2.2.1** |
 | :material-check-circle:{ .current } | [vaultwarden](https://github.com/daemonless/vaultwarden/actions/workflows/build.yaml) | pkg | 1.35.2 |
 | :material-check-circle:{ .current } | [vaultwarden](https://github.com/daemonless/vaultwarden/actions/workflows/build.yaml) | pkg-latest | 1.35.4 |
 | :material-check-circle:{ .current } | [woodpecker](https://github.com/daemonless/woodpecker/actions/workflows/build.yaml) | latest | 3.13.0 |
 
 ## Summary
 
-- :material-check-circle:{ .current } Current: 37
-- :material-close-circle:{ .outdated } Outdated: 1
+- :material-check-circle:{ .current } Current: 35
+- :material-close-circle:{ .outdated } Outdated: 3
