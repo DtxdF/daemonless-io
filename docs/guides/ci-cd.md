@@ -75,6 +75,13 @@ gh workflow run build.yaml
 dbuild build --push
 ```
 
+## Linux Pre-Build Artifacts
+
+Some images require assets built with toolchains unavailable on FreeBSD (e.g. SWC for
+JavaScript frontends). These are built on a Linux runner first and passed into the FreeBSD
+build as a GitHub Actions artifact. See the [Linux Pre-Build guide](linux-pre-build.md)
+for the full pattern.
+
 ## Local Development
 
 Build locally with the same tool used in CI:
