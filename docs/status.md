@@ -8,7 +8,7 @@ description: "Real-time version tracking for every Daemonless image. See which c
 | Status | Image | Tag | Version |
 |:------:|-------|-----|---------|
 | :material-check-circle:{ .current } | [adguardhome](https://github.com/daemonless/adguardhome/actions/workflows/build.yaml) | pkg | 0.107.69_4 |
-| :material-close-circle:{ .outdated } | [adguardhome](https://github.com/daemonless/adguardhome/actions/workflows/build.yaml) | pkg-latest | 0.107.71_2 → **0.107.72** |
+| :material-check-circle:{ .current } | [adguardhome](https://github.com/daemonless/adguardhome/actions/workflows/build.yaml) | pkg-latest | 0.107.72 |
 | :material-check-circle:{ .current } | [adguardhome](https://github.com/daemonless/adguardhome/actions/workflows/build.yaml) | latest | 0.107.73 |
 | :material-check-circle:{ .current } | [adguardhome-sync](https://github.com/daemonless/adguardhome-sync/actions/workflows/build.yaml) | latest | 0.9.0 |
 | :material-check-circle:{ .current } | [bazarr](https://github.com/daemonless/bazarr/actions/workflows/build.yaml) | pkg | 1.5.2_3 |
@@ -86,5 +86,5 @@ description: "Real-time version tracking for every Daemonless image. See which c
 
 ## Summary
 
-- :material-check-circle:{ .current } Current: 37
-- :material-close-circle:{ .outdated } Outdated: 1
+- :material-check-circle:{ .current } Current: 38
+- :material-close-circle:{ .outdated } Outdated: 0
