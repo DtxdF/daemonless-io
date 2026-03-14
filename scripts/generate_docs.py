@@ -13,7 +13,7 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).parent
 REPO_ROOT = SCRIPT_DIR.parent  # daemonless-io
 REPOS_DIR = REPO_ROOT.parent   # Parent dir where repos are cloned
-TEMPLATE_DIR = REPO_ROOT / "templates"
+TEMPLATE_DIR = REPOS_DIR / "dbuild" / "dbuild" / "templates"
 DOCS_DIR = REPO_ROOT / "docs" / "images"
 PLACEHOLDER_PLUGIN = REPO_ROOT / "placeholder-plugin.yaml"
 
@@ -81,6 +81,7 @@ def load_compose_config(repo_path):
             'ports': [],
             'tags': get_tags(repo_path),
             'repo_url': f"https://github.com/daemonless/{repo_path.name}",
+            'registry': "ghcr.io/daemonless",
             'architectures': load_architectures(repo_path),
         }
         return config
@@ -111,6 +112,7 @@ def load_compose_config(repo_path):
         'ports': [],
         'tags': get_tags(repo_path),
         'repo_url': f"https://github.com/daemonless/{repo_path.name}",
+        'registry': "ghcr.io/daemonless",
         'architectures': load_architectures(repo_path),
     }
 
@@ -240,6 +242,7 @@ def load_fallback_config(repo_path):
         'ports': [{'port': data.get('port', '80'), 'protocol': 'tcp', 'desc': 'Web UI'}] if data.get('port') else [],
         'tags': get_tags(repo_path),
         'repo_url': f"https://github.com/daemonless/{repo_path.name}",
+        'registry': "ghcr.io/daemonless",
         'architectures': data.get('build', {}).get('architectures', ['amd64']),
     }
 
