@@ -88,7 +88,6 @@ nav:
   - Getting Started: quick-start.md
   - Fleet:
     - Overview: images/index.md
-    - Version Status: status.md
     - Base:
       - Arr Base: images/arr-base.md
       - FreeBSD Base: images/base.md

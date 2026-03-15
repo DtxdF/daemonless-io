@@ -15,6 +15,29 @@ Explore our collection of high-performance, FreeBSD-native OCI containers.
 | [:simple-freebsd: FreeBSD Base](base.md) | - | FreeBSD base image with s6 supervision |
 | [:simple-nginx: Nginx Base](nginx-base.md) | - | Shared base image for Nginx-based applications. |
 
+## Databases
+
+| Image | Port | Description |
+|-------|------|-------------|
+| [:simple-postgresql: Immich PostgreSQL](immich-postgres.md) | 5432 | PostgreSQL 14 with pgvector/pgvecto.rs extensions for Immich. |
+| [:simple-mariadb: MariaDB](mariadb.md) | 3306 | MariaDB database server for FreeBSD. |
+| [:simple-postgresql: PostgreSQL](postgres.md) | 5432 | The World's Most Advanced Open Source Relational Database on FreeBSD. |
+| [:simple-redis: Redis](redis.md) | 6379 | Redis key-value store on FreeBSD. |
+
+## Development
+
+| Image | Port | Description |
+|-------|------|-------------|
+| [:simple-hugo: Hugo](hugo.md) | 1313 | The world's fastest framework for building websites. |
+
+## Downloaders
+
+| Image | Port | Description |
+|-------|------|-------------|
+| [:material-download-network: SABnzbd](sabnzbd.md) | 8080 | SABnzbd Usenet downloader on FreeBSD. |
+| [:simple-transmission: Transmission](transmission.md) | 9091 | Transmission BitTorrent client on FreeBSD. |
+| [:simple-wireguard: Transmission with WireGuard](transmission-wireguard.md) | 9091 | Transmission BitTorrent client with built-in WireGuard VPN support. |
+
 ## Infrastructure
 
 | Image | Port | Description |
@@ -24,13 +47,6 @@ Explore our collection of high-performance, FreeBSD-native OCI containers.
 | [:simple-tailscale: Tailscale](tailscale.md) | - | Tailscale mesh VPN on FreeBSD. |
 | [:material-server-network: Traefik](traefik.md) | 80 | Modern HTTP reverse proxy and load balancer on FreeBSD. |
 | [:material-hammer: Woodpecker CI](woodpecker.md) | 8000 | Woodpecker CI server and agent on FreeBSD. |
-
-## Network
-
-| Image | Port | Description |
-|-------|------|-------------|
-| [:simple-adguard: AdGuard Home](adguardhome.md) | 53 | Network-wide ads & trackers blocking DNS server on FreeBSD. |
-| [:simple-adguard: AdGuardHome Sync](adguardhome-sync.md) | 8080 | Sync AdGuardHome configuration to replica instances. |
 
 ## Media Management
 
@@ -46,14 +62,6 @@ Explore our collection of high-performance, FreeBSD-native OCI containers.
 | [:material-eye: Seerr](seerr.md) | 5055 | Unified media request management (Plex, Jellyfin, Emby) on FreeBSD. |
 | [:material-television: Sonarr](sonarr.md) | 8989 | Sonarr TV series management on FreeBSD. |
 
-## Downloaders
-
-| Image | Port | Description |
-|-------|------|-------------|
-| [:material-download-network: SABnzbd](sabnzbd.md) | 8080 | SABnzbd Usenet downloader on FreeBSD. |
-| [:simple-transmission: Transmission](transmission.md) | 9091 | Transmission BitTorrent client on FreeBSD. |
-| [:simple-wireguard: Transmission with WireGuard](transmission-wireguard.md) | 9091 | Transmission BitTorrent client with built-in WireGuard VPN support. |
-
 ## Media Servers
 
 | Image | Port | Description |
@@ -62,14 +70,12 @@ Explore our collection of high-performance, FreeBSD-native OCI containers.
 | [:simple-plex: Plex Media Server](plex.md) | 32400 | Plex Media Server on FreeBSD. |
 | [:simple-plex: Tautulli](tautulli.md) | 8181 | Tautulli Plex monitoring on FreeBSD. |
 
-## Databases
+## Network
 
 | Image | Port | Description |
 |-------|------|-------------|
-| [:simple-postgresql: Immich PostgreSQL](immich-postgres.md) | 5432 | PostgreSQL 14 with pgvector/pgvecto.rs extensions for Immich. |
-| [:simple-mariadb: MariaDB](mariadb.md) | 3306 | MariaDB database server for FreeBSD. |
-| [:simple-postgresql: PostgreSQL](postgres.md) | 5432 | The World's Most Advanced Open Source Relational Database on FreeBSD. |
-| [:simple-redis: Redis](redis.md) | 6379 | Redis key-value store on FreeBSD. |
+| [:simple-adguard: AdGuard Home](adguardhome.md) | 53 | Network-wide ads & trackers blocking DNS server on FreeBSD. |
+| [:simple-adguard: AdGuardHome Sync](adguardhome-sync.md) | 8080 | Sync AdGuardHome configuration to replica instances. |
 
 ## Photos & Media
 
@@ -83,6 +89,7 @@ Explore our collection of high-performance, FreeBSD-native OCI containers.
 
 | Image | Port | Description |
 |-------|------|-------------|
+| [:material-apps: Home Assistant](home-assistant.md) | - | Home Assistant on FreeBSD. |
 | [:material-view-dashboard: Homepage](homepage.md) | 3000 | A modern, highly customizable dashboard for your homelab. |
 | [:material-food: Mealie](mealie.md) | 9000 | Self-hosted recipe manager and meal planner on FreeBSD. |
 | [:simple-nextcloud: Nextcloud](nextcloud.md) | 8082 | Nextcloud self-hosted cloud on FreeBSD. |

@@ -42,10 +42,10 @@ jobs:
           cd daemonless-io
           make fetch
 
-      # - name: Generate documentation
-      #   run: |
-      #     cd daemonless-io
-      #     make generate
+      - name: Generate documentation
+        run: |
+          cd daemonless-io
+          make generate
 
       - name: Build site
         run: |

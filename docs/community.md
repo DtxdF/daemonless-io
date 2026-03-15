@@ -42,7 +42,7 @@ We want this project to grow, and we need your help to do it. Here are a few way
 ### 1. The "Wishlist"
 Is there an app you love that isn't in our [Fleet](images/index.md)? 
 *   **Request it:** Open an issue on GitHub.
-*   **Build it:** Check out the [dbuild guide](guides/dbuild.md) and submit your first image!
+*   **Build it:** Check out the [dbuild guide](guides/dbuild/index.md) and submit your first image!
 
 ### 2. Share Your Setup
 We love seeing how people use Daemonless. Join the Discord and share a screenshot of your `podman ps` or your dashboard. Your setup might inspire someone else's homelab.
