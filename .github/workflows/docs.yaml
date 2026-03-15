@@ -31,25 +31,26 @@ jobs:
           python-version: "3.x"
 
       - name: Install dependencies
-        run: pip install mkdocs-material mkdocs-placeholder-plugin PyYAML
+        run: |
+          cd daemonless-io
+          pip install -r requirements.txt
 
       - name: Fetch repositories
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           cd daemonless-io
-          python3 scripts/fetch_repos.py
+          make fetch
 
-      # - name: Generate docs
+      # - name: Generate documentation
       #   run: |
       #     cd daemonless-io
-      #     pip install jinja2
-      #     python3 scripts/generate_docs.py
+      #     make generate
 
       - name: Build site
         run: |
           cd daemonless-io
-          mkdocs build
+          make build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
