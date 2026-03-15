@@ -22,7 +22,7 @@ description: "Real-time version tracking for every Daemonless image. See which c
 | :material-check-circle:{ .current } | [home-assistant](https://github.com/daemonless/home-assistant/actions/workflows/build.yaml) | latest | 2026.3.1 |
 | :material-check-circle:{ .current } | [homepage](https://github.com/daemonless/homepage/actions/workflows/build.yaml) | pkg | 1.8.0 |
 | :material-check-circle:{ .current } | [homepage](https://github.com/daemonless/homepage/actions/workflows/build.yaml) | pkg-latest | 1.10.1 |
-| :material-check-circle:{ .current } | [homepage](https://github.com/daemonless/homepage/actions/workflows/build.yaml) | latest | 1.10.1 |
+| :material-close-circle:{ .outdated } | [homepage](https://github.com/daemonless/homepage/actions/workflows/build.yaml) | latest | 1.10.1 → **1.11.0** |
 | :material-check-circle:{ .current } | [hugo](https://github.com/daemonless/hugo/actions/workflows/build.yaml) | pkg | 0.154.5_3_1 |
 | :material-check-circle:{ .current } | [hugo](https://github.com/daemonless/hugo/actions/workflows/build.yaml) | pkg-latest | 0.157.0_1_1 |
 | :material-check-circle:{ .current } | [hugo](https://github.com/daemonless/hugo/actions/workflows/build.yaml) | latest | 0.157.0 |
@@ -87,5 +87,5 @@ description: "Real-time version tracking for every Daemonless image. See which c
 
 ## Summary
 
-- :material-check-circle:{ .current } Current: 39
-- :material-close-circle:{ .outdated } Outdated: 0
+- :material-check-circle:{ .current } Current: 38
+- :material-close-circle:{ .outdated } Outdated: 1
