@@ -48,6 +48,8 @@ jobs:
           make fetch
 
       - name: Generate documentation
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           cd daemonless-io
           make generate
