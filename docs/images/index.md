@@ -1,111 +1,122 @@
 ---
-title: "Container Fleet: 30+ Native FreeBSD OCI Images"
-description: "Browse all daemonless container images. Media servers, downloaders, databases, and utilities - all running natively on FreeBSD with Podman and ocijail."
+title: "Fleet Overview: FreeBSD Container Images"
+description: "Browse all daemonless container images with build status."
 ---
 
-# Container Fleet
+<style>
+.md-typeset table { table-layout: fixed; width: 100%; }
+.md-typeset table th:nth-child(1), .md-typeset table td:nth-child(1) { width: 18%; }
+.md-typeset table th:nth-child(2), .md-typeset table td:nth-child(2) { width: 44%; }
+.md-typeset table th:nth-child(3), .md-typeset table td:nth-child(3) { width: 5%; text-align: center; }
+.md-typeset table th:nth-child(4), .md-typeset table td:nth-child(4) { width: 5%; text-align: center; }
+.md-typeset table th:nth-child(5), .md-typeset table td:nth-child(5) { width: 14%; text-align: center; }
+.md-typeset table th:nth-child(6), .md-typeset table td:nth-child(6) { width: 14%; text-align: center; }
+</style>
 
-Explore our collection of high-performance, FreeBSD-native OCI containers.
+# Fleet Overview
+
 
 ## Base
 
-| Image | Port | Description |
-|-------|------|-------------|
-| [:material-layers: Arr Base](arr-base.md) | - | Shared base image for *Arr applications (Radarr, Sonarr, Lidarr, Prowlarr) containing common dependencies. |
-| [:simple-freebsd: FreeBSD Base](base.md) | - | FreeBSD base image with s6 supervision |
-| [:simple-nginx: Nginx Base](nginx-base.md) | - | Shared base image for Nginx-based applications. |
+| Image | Description | Repo | Upstream | CI/CD | Last Commit |
+|-------|-------------|:----:|:--------:|:-----:|:-----------:|
+| [:material-layers: Arr Base](arr-base.md) | Shared base image for *Arr applications (Radarr, Sonarr, Lidarr, Prowlarr) containing common dependencies. | [:simple-github:](https://github.com/daemonless/arr-base){target=_blank} | [:material-link-variant:](https://github.com/daemonless/arr-base){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/arr-base/build.yaml?label=)](https://github.com/daemonless/arr-base/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/arr-base?label=)](https://github.com/daemonless/arr-base/commits){target=_blank} |
+| [:simple-freebsd: FreeBSD Base](base.md) | FreeBSD base image with s6 supervision | [:simple-github:](https://github.com/daemonless/base){target=_blank} | [:material-link-variant:](https://github.com/freebsd/freebsd-src){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/base/build.yaml?label=)](https://github.com/daemonless/base/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/base?label=)](https://github.com/daemonless/base/commits){target=_blank} |
+| [:simple-nginx: Nginx Base](nginx-base.md) | Shared base image for Nginx-based applications. | [:simple-github:](https://github.com/daemonless/nginx-base){target=_blank} | [:material-link-variant:](https://github.com/daemonless/nginx-base){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/nginx-base/build.yaml?label=)](https://github.com/daemonless/nginx-base/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/nginx-base?label=)](https://github.com/daemonless/nginx-base/commits){target=_blank} |
+
 
 ## Databases
 
-| Image | Port | Description |
-|-------|------|-------------|
-| [:simple-postgresql: Immich PostgreSQL](immich-postgres.md) | 5432 | PostgreSQL 14 with pgvector/pgvecto.rs extensions for Immich. |
-| [:simple-mariadb: MariaDB](mariadb.md) | 3306 | MariaDB database server for FreeBSD. |
-| [:simple-postgresql: PostgreSQL](postgres.md) | 5432 | The World's Most Advanced Open Source Relational Database on FreeBSD. |
-| [:simple-redis: Redis](redis.md) | 6379 | Redis key-value store on FreeBSD. |
+| Image | Description | Repo | Upstream | CI/CD | Last Commit |
+|-------|-------------|:----:|:--------:|:-----:|:-----------:|
+| [:simple-postgresql: Immich PostgreSQL](immich-postgres.md) | PostgreSQL 14 with pgvector/pgvecto.rs extensions for Immich. | [:simple-github:](https://github.com/daemonless/immich-postgres){target=_blank} | [:material-link-variant:](https://github.com/immich-app/immich){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/immich-postgres/build.yaml?label=)](https://github.com/daemonless/immich-postgres/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/immich-postgres?label=)](https://github.com/daemonless/immich-postgres/commits){target=_blank} |
+| [:simple-mariadb: MariaDB](mariadb.md) | MariaDB database server for FreeBSD. | [:simple-github:](https://github.com/daemonless/mariadb){target=_blank} | [:material-link-variant:](https://github.com/MariaDB/server){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/mariadb/build.yaml?label=)](https://github.com/daemonless/mariadb/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/mariadb?label=)](https://github.com/daemonless/mariadb/commits){target=_blank} |
+| [:simple-postgresql: PostgreSQL](postgres.md) | The World's Most Advanced Open Source Relational Database on FreeBSD. | [:simple-github:](https://github.com/daemonless/postgres){target=_blank} | [:material-link-variant:](https://www.postgresql.org/){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/postgres/build.yaml?label=)](https://github.com/daemonless/postgres/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/postgres?label=)](https://github.com/daemonless/postgres/commits){target=_blank} |
+| [:simple-redis: Redis](redis.md) | Redis key-value store on FreeBSD. | [:simple-github:](https://github.com/daemonless/redis){target=_blank} | [:material-link-variant:](https://github.com/redis/redis){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/redis/build.yaml?label=)](https://github.com/daemonless/redis/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/redis?label=)](https://github.com/daemonless/redis/commits){target=_blank} |
+
 
 ## Development
 
-| Image | Port | Description |
-|-------|------|-------------|
-| [:simple-hugo: Hugo](hugo.md) | 1313 | The world's fastest framework for building websites. |
+| Image | Description | Repo | Upstream | CI/CD | Last Commit |
+|-------|-------------|:----:|:--------:|:-----:|:-----------:|
+| [:simple-hugo: Hugo](hugo.md) | The world's fastest framework for building websites. | [:simple-github:](https://github.com/daemonless/hugo){target=_blank} | [:material-link-variant:](https://github.com/gohugoio/hugo){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/hugo/build.yaml?label=)](https://github.com/daemonless/hugo/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/hugo?label=)](https://github.com/daemonless/hugo/commits){target=_blank} |
+
 
 ## Downloaders
 
-| Image | Port | Description |
-|-------|------|-------------|
-| [:material-download-network: SABnzbd](sabnzbd.md) | 8080 | SABnzbd Usenet downloader on FreeBSD. |
-| [:simple-transmission: Transmission](transmission.md) | 9091 | Transmission BitTorrent client on FreeBSD. |
-| [:simple-wireguard: Transmission with WireGuard](transmission-wireguard.md) | 9091 | Transmission BitTorrent client with built-in WireGuard VPN support. |
+| Image | Description | Repo | Upstream | CI/CD | Last Commit |
+|-------|-------------|:----:|:--------:|:-----:|:-----------:|
+| [:material-download-network: SABnzbd](sabnzbd.md) | SABnzbd Usenet downloader on FreeBSD. | [:simple-github:](https://github.com/daemonless/sabnzbd){target=_blank} | [:material-link-variant:](https://github.com/sabnzbd/sabnzbd){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/sabnzbd/build.yaml?label=)](https://github.com/daemonless/sabnzbd/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/sabnzbd?label=)](https://github.com/daemonless/sabnzbd/commits){target=_blank} |
+| [:simple-transmission: Transmission](transmission.md) | Transmission BitTorrent client on FreeBSD. | [:simple-github:](https://github.com/daemonless/transmission){target=_blank} | [:material-link-variant:](https://github.com/transmission/transmission){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/transmission/build.yaml?label=)](https://github.com/daemonless/transmission/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/transmission?label=)](https://github.com/daemonless/transmission/commits){target=_blank} |
+| [:simple-wireguard: Transmission with WireGuard](transmission-wireguard.md) | Transmission BitTorrent client with built-in WireGuard VPN support. | [:simple-github:](https://github.com/daemonless/transmission-wireguard){target=_blank} | [:material-link-variant:](https://github.com/transmission/transmission){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/transmission-wireguard/build.yaml?label=)](https://github.com/daemonless/transmission-wireguard/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/transmission-wireguard?label=)](https://github.com/daemonless/transmission-wireguard/commits){target=_blank} |
+
 
 ## Infrastructure
 
-| Image | Port | Description |
-|-------|------|-------------|
-| [:simple-cloudflare: Cloudflared](cloudflared.md) | 2000 | Cloudflare Tunnel client for exposing services securely. |
-| [:simple-gitea: Gitea](gitea.md) | 3000 | Gitea self-hosted Git service on FreeBSD. |
-| [:simple-tailscale: Tailscale](tailscale.md) | - | Tailscale mesh VPN on FreeBSD. |
-| [:material-server-network: Traefik](traefik.md) | 80 | Modern HTTP reverse proxy and load balancer on FreeBSD. |
-| [:material-hammer: Woodpecker CI](woodpecker.md) | 8000 | Woodpecker CI server and agent on FreeBSD. |
+| Image | Description | Repo | Upstream | CI/CD | Last Commit |
+|-------|-------------|:----:|:--------:|:-----:|:-----------:|
+| [:simple-cloudflare: Cloudflared](cloudflared.md) | Cloudflare Tunnel client for exposing services securely. | [:simple-github:](https://github.com/daemonless/cloudflared){target=_blank} | [:material-link-variant:](https://github.com/cloudflare/cloudflared){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/cloudflared/build.yaml?label=)](https://github.com/daemonless/cloudflared/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/cloudflared?label=)](https://github.com/daemonless/cloudflared/commits){target=_blank} |
+| [:simple-gitea: Gitea](gitea.md) | Gitea self-hosted Git service on FreeBSD. | [:simple-github:](https://github.com/daemonless/gitea){target=_blank} | [:material-link-variant:](https://github.com/go-gitea/gitea){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/gitea/build.yaml?label=)](https://github.com/daemonless/gitea/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/gitea?label=)](https://github.com/daemonless/gitea/commits){target=_blank} |
+| [:simple-tailscale: Tailscale](tailscale.md) | Tailscale mesh VPN on FreeBSD. | [:simple-github:](https://github.com/daemonless/tailscale){target=_blank} | [:material-link-variant:](https://github.com/tailscale/tailscale){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/tailscale/build.yaml?label=)](https://github.com/daemonless/tailscale/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/tailscale?label=)](https://github.com/daemonless/tailscale/commits){target=_blank} |
+| [:material-server-network: Traefik](traefik.md) | Modern HTTP reverse proxy and load balancer on FreeBSD. | [:simple-github:](https://github.com/daemonless/traefik){target=_blank} | [:material-link-variant:](https://github.com/traefik/traefik){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/traefik/build.yaml?label=)](https://github.com/daemonless/traefik/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/traefik?label=)](https://github.com/daemonless/traefik/commits){target=_blank} |
+| [:material-hammer: Woodpecker CI](woodpecker.md) | Woodpecker CI server and agent on FreeBSD. | [:simple-github:](https://github.com/daemonless/woodpecker){target=_blank} | [:material-link-variant:](https://github.com/woodpecker-ci/woodpecker){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/woodpecker/build.yaml?label=)](https://github.com/daemonless/woodpecker/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/woodpecker?label=)](https://github.com/daemonless/woodpecker/commits){target=_blank} |
+
 
 ## Media Management
 
-| Image | Port | Description |
-|-------|------|-------------|
-| [:material-subtitle: Bazarr](bazarr.md) | 6767 | Bazarr is a companion application to Sonarr and Radarr. It can manage and download subtitles based on your requirements. You define your preferences by TV show or movie and Bazarr takes care of everything for you. |
-| [:material-book-open-page-variant: BookLore](booklore.md) | - | Self-hosted digital library with smart shelves, metadata, OPDS support, and built-in reader. **Deprecated** — BookLore development has stopped and the project has been deleted. |
-| [:material-music: Lidarr](lidarr.md) | 8686 | Lidarr music management on FreeBSD. |
-| [:material-eye: Overseerr](overseerr.md) | 5055 | Overseerr media request management on FreeBSD. **Deprecated** — Overseerr is no longer maintained. Migrate to [Seerr](https://github.com/daemonless/seerr): copy /containers/overseerr to /containers/seerr and deploy. Seerr auto-migrates config. |
-| [:material-magnet: Prowlarr](prowlarr.md) | 9696 | Prowlarr indexer management on FreeBSD. |
-| [:material-movie: Radarr](radarr.md) | 7878 | Radarr movie management on FreeBSD. |
-| [:material-book-music: ReadMeABook](readmeabook.md) | 3030 | Audiobook request and management platform with AI recommendations. |
-| [:material-eye: Seerr](seerr.md) | 5055 | Unified media request management (Plex, Jellyfin, Emby) on FreeBSD. |
-| [:material-television: Sonarr](sonarr.md) | 8989 | Sonarr TV series management on FreeBSD. |
+| Image | Description | Repo | Upstream | CI/CD | Last Commit |
+|-------|-------------|:----:|:--------:|:-----:|:-----------:|
+| [:material-subtitles: Bazarr](bazarr.md) | Bazarr is a companion application to Sonarr and Radarr. It can manage and download subtitles based on your requirements. You define your preferences by TV show or movie and Bazarr takes care of everything for you. | [:simple-github:](https://github.com/daemonless/bazarr){target=_blank} | [:material-link-variant:](https://github.com/morpheus65535/bazarr){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/bazarr/build.yaml?label=)](https://github.com/daemonless/bazarr/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/bazarr?label=)](https://github.com/daemonless/bazarr/commits){target=_blank} |
+| [:material-book-open-page-variant: BookLore](booklore.md) | Self-hosted digital library with smart shelves, metadata, OPDS support, and built-in reader. **Deprecated** — BookLore development has stopped and the project has been deleted. | [:simple-github:](https://github.com/daemonless/booklore){target=_blank} | [:material-link-variant:](https://github.com/booklore-app/booklore){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/booklore/build.yaml?label=)](https://github.com/daemonless/booklore/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/booklore?label=)](https://github.com/daemonless/booklore/commits){target=_blank} |
+| [:material-music: Lidarr](lidarr.md) | Lidarr music management on FreeBSD. | [:simple-github:](https://github.com/daemonless/lidarr){target=_blank} | [:material-link-variant:](https://github.com/Lidarr/Lidarr){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/lidarr/build.yaml?label=)](https://github.com/daemonless/lidarr/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/lidarr?label=)](https://github.com/daemonless/lidarr/commits){target=_blank} |
+| [:material-eye: Overseerr](overseerr.md) | Overseerr media request management on FreeBSD. **Deprecated** — Overseerr is no longer maintained. Migrate to [Seerr](https://github.com/daemonless/seerr): copy /containers/overseerr to /containers/seerr and deploy. Seerr auto-migrates config. | [:simple-github:](https://github.com/daemonless/overseerr){target=_blank} | [:material-link-variant:](https://github.com/sct/overseerr){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/overseerr/build.yaml?label=)](https://github.com/daemonless/overseerr/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/overseerr?label=)](https://github.com/daemonless/overseerr/commits){target=_blank} |
+| [:material-magnet: Prowlarr](prowlarr.md) | Prowlarr indexer management on FreeBSD. | [:simple-github:](https://github.com/daemonless/prowlarr){target=_blank} | [:material-link-variant:](https://github.com/Prowlarr/Prowlarr){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/prowlarr/build.yaml?label=)](https://github.com/daemonless/prowlarr/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/prowlarr?label=)](https://github.com/daemonless/prowlarr/commits){target=_blank} |
+| [:material-movie: Radarr](radarr.md) | Radarr movie management on FreeBSD. | [:simple-github:](https://github.com/daemonless/radarr){target=_blank} | [:material-link-variant:](https://github.com/Radarr/Radarr){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/radarr/build.yaml?label=)](https://github.com/daemonless/radarr/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/radarr?label=)](https://github.com/daemonless/radarr/commits){target=_blank} |
+| [:material-book-music: ReadMeABook](readmeabook.md) | Audiobook request and management platform with AI recommendations. | [:simple-github:](https://github.com/daemonless/readmeabook){target=_blank} | [:material-link-variant:](https://github.com/kikootwo/readmeabook){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/readmeabook/build.yaml?label=)](https://github.com/daemonless/readmeabook/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/readmeabook?label=)](https://github.com/daemonless/readmeabook/commits){target=_blank} |
+| [:material-eye: Seerr](seerr.md) | Unified media request management (Plex, Jellyfin, Emby) on FreeBSD. | [:simple-github:](https://github.com/daemonless/seerr){target=_blank} | [:material-link-variant:](https://github.com/seerr-team/seerr){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/seerr/build.yaml?label=)](https://github.com/daemonless/seerr/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/seerr?label=)](https://github.com/daemonless/seerr/commits){target=_blank} |
+| [:material-television: Sonarr](sonarr.md) | Sonarr TV series management on FreeBSD. | [:simple-github:](https://github.com/daemonless/sonarr){target=_blank} | [:material-link-variant:](https://github.com/Sonarr/Sonarr){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/sonarr/build.yaml?label=)](https://github.com/daemonless/sonarr/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/sonarr?label=)](https://github.com/daemonless/sonarr/commits){target=_blank} |
+
 
 ## Media Servers
 
-| Image | Port | Description |
-|-------|------|-------------|
-| [:simple-jellyfin: Jellyfin](jellyfin.md) | 8096 | The Free Software Media System on FreeBSD. |
-| [:simple-plex: Plex Media Server](plex.md) | 32400 | Plex Media Server on FreeBSD. |
-| [:simple-plex: Tautulli](tautulli.md) | 8181 | Tautulli Plex monitoring on FreeBSD. |
+| Image | Description | Repo | Upstream | CI/CD | Last Commit |
+|-------|-------------|:----:|:--------:|:-----:|:-----------:|
+| [:simple-jellyfin: Jellyfin](jellyfin.md) | The Free Software Media System on FreeBSD. | [:simple-github:](https://github.com/daemonless/jellyfin){target=_blank} | [:material-link-variant:](https://github.com/jellyfin/jellyfin){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/jellyfin/build.yaml?label=)](https://github.com/daemonless/jellyfin/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/jellyfin?label=)](https://github.com/daemonless/jellyfin/commits){target=_blank} |
+| [:simple-plex: Plex Media Server](plex.md) | Plex Media Server on FreeBSD. | [:simple-github:](https://github.com/daemonless/plex){target=_blank} | [:material-link-variant:](https://github.com/daemonless/plex){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/plex/build.yaml?label=)](https://github.com/daemonless/plex/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/plex?label=)](https://github.com/daemonless/plex/commits){target=_blank} |
+| [:simple-plex: Tautulli](tautulli.md) | Tautulli Plex monitoring on FreeBSD. | [:simple-github:](https://github.com/daemonless/tautulli){target=_blank} | [:material-link-variant:](https://github.com/Tautulli/Tautulli){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/tautulli/build.yaml?label=)](https://github.com/daemonless/tautulli/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/tautulli?label=)](https://github.com/daemonless/tautulli/commits){target=_blank} |
+
 
 ## Network
 
-| Image | Port | Description |
-|-------|------|-------------|
-| [:simple-adguard: AdGuard Home](adguardhome.md) | 53 | Network-wide ads & trackers blocking DNS server on FreeBSD. |
-| [:simple-adguard: AdGuardHome Sync](adguardhome-sync.md) | 8080 | Sync AdGuardHome configuration to replica instances. |
+| Image | Description | Repo | Upstream | CI/CD | Last Commit |
+|-------|-------------|:----:|:--------:|:-----:|:-----------:|
+| [:simple-adguard: AdGuard Home](adguardhome.md) | Network-wide ads & trackers blocking DNS server on FreeBSD. | [:simple-github:](https://github.com/daemonless/adguardhome){target=_blank} | [:material-link-variant:](https://github.com/AdguardTeam/AdGuardHome){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/adguardhome/build.yaml?label=)](https://github.com/daemonless/adguardhome/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/adguardhome?label=)](https://github.com/daemonless/adguardhome/commits){target=_blank} |
+| [:simple-adguard: AdGuardHome Sync](adguardhome-sync.md) | Sync AdGuardHome configuration to replica instances. | [:simple-github:](https://github.com/daemonless/adguardhome-sync){target=_blank} | [:material-link-variant:](https://github.com/bakito/adguardhome-sync){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/adguardhome-sync/build.yaml?label=)](https://github.com/daemonless/adguardhome-sync/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/adguardhome-sync?label=)](https://github.com/daemonless/adguardhome-sync/commits){target=_blank} |
+
 
 ## Photos & Media
 
-| Image | Port | Description |
-|-------|------|-------------|
-| [:simple-googlephotos: Immich](immich.md) | - | Self-hosted photo and video management solution. |
-| [:material-brain: Immich Machine Learning](immich-ml.md) | 3003 | Immich Machine Learning service (Python/ONNX) on FreeBSD. |
-| [:material-server: Immich Server](immich-server.md) | 2283 | Immich photo management server on FreeBSD. |
+| Image | Description | Repo | Upstream | CI/CD | Last Commit |
+|-------|-------------|:----:|:--------:|:-----:|:-----------:|
+| [:simple-googlephotos: Immich](immich.md) | Self-hosted photo and video management solution. | [:simple-github:](https://github.com/daemonless/immich){target=_blank} | [:material-link-variant:](https://github.com/immich-app/immich){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/immich/build.yaml?label=)](https://github.com/daemonless/immich/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/immich?label=)](https://github.com/daemonless/immich/commits){target=_blank} |
+| [:material-brain: Immich Machine Learning](immich-ml.md) | Immich Machine Learning service (Python/ONNX) on FreeBSD. | [:simple-github:](https://github.com/daemonless/immich-ml){target=_blank} | [:material-link-variant:](https://github.com/immich-app/immich){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/immich-ml/build.yaml?label=)](https://github.com/daemonless/immich-ml/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/immich-ml?label=)](https://github.com/daemonless/immich-ml/commits){target=_blank} |
+| [:material-server: Immich Server](immich-server.md) | Immich photo management server on FreeBSD. | [:simple-github:](https://github.com/daemonless/immich-server){target=_blank} | [:material-link-variant:](https://github.com/immich-app/immich){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/immich-server/build.yaml?label=)](https://github.com/daemonless/immich-server/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/immich-server?label=)](https://github.com/daemonless/immich-server/commits){target=_blank} |
+
 
 ## Utilities
 
-| Image | Port | Description |
-|-------|------|-------------|
-| [:material-email: Bichon](bichon.md) | 15630 | High-performance email archiver and search tool on FreeBSD. |
-| [:material-apps: Home Assistant](home-assistant.md) | - | Home Assistant on FreeBSD. |
-| [:material-view-dashboard: Homepage](homepage.md) | 3000 | A modern, highly customizable dashboard for your homelab. |
-| [:material-food: Mealie](mealie.md) | 9000 | Self-hosted recipe manager and meal planner on FreeBSD. |
-| [:simple-nextcloud: Nextcloud](nextcloud.md) | 8082 | Nextcloud self-hosted cloud on FreeBSD. |
-| [:material-speedometer: OpenSpeedTest](openspeedtest.md) | 3005 | Self-hosted HTML5 Network Speed Test on FreeBSD. |
-| [:material-view-dashboard: Organizr](organizr.md) | 8083 | HTPC/Homelab Services Organizer on FreeBSD. |
-| [:material-pulse: SmokePing](smokeping.md) | 8081 | SmokePing network latency monitor on FreeBSD. |
-| [:material-access-point-network: UniFi Network](unifi.md) | 8443 | UniFi Network Application on FreeBSD. |
-| [:material-chart-line: Uptime Kuma](uptime-kuma.md) | 3001 | A fancy self-hosted monitoring tool on FreeBSD. |
-| [:simple-bitwarden: Vaultwarden](vaultwarden.md) | 8080 | Vaultwarden (Bitwarden compatible backend) on FreeBSD. |
-| [:simple-n8n: n8n](n8n.md) | 5678 | Workflow automation tool on FreeBSD. |
+| Image | Description | Repo | Upstream | CI/CD | Last Commit |
+|-------|-------------|:----:|:--------:|:-----:|:-----------:|
+| [:material-email: Bichon](bichon.md) | High-performance email archiver and search tool on FreeBSD. | [:simple-github:](https://github.com/daemonless/bichon){target=_blank} | [:material-link-variant:](https://github.com/rustmailer/bichon){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/bichon/build.yaml?label=)](https://github.com/daemonless/bichon/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/bichon?label=)](https://github.com/daemonless/bichon/commits){target=_blank} |
+| [:material-apps: Home Assistant](home-assistant.md) | Home Assistant on FreeBSD. | [:simple-github:](https://github.com/daemonless/home-assistant){target=_blank} | [:material-link-variant:](https://github.com/daemonless/home-assistant){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/home-assistant/build.yaml?label=)](https://github.com/daemonless/home-assistant/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/home-assistant?label=)](https://github.com/daemonless/home-assistant/commits){target=_blank} |
+| [:material-view-dashboard: Homepage](homepage.md) | A modern, highly customizable dashboard for your homelab. | [:simple-github:](https://github.com/daemonless/homepage){target=_blank} | [:material-link-variant:](https://github.com/gethomepage/homepage){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/homepage/build.yaml?label=)](https://github.com/daemonless/homepage/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/homepage?label=)](https://github.com/daemonless/homepage/commits){target=_blank} |
+| [:material-food: Mealie](mealie.md) | Self-hosted recipe manager and meal planner on FreeBSD. | [:simple-github:](https://github.com/daemonless/mealie){target=_blank} | [:material-link-variant:](https://github.com/mealie-recipes/mealie){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/mealie/build.yaml?label=)](https://github.com/daemonless/mealie/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/mealie?label=)](https://github.com/daemonless/mealie/commits){target=_blank} |
+| [:simple-n8n: n8n](n8n.md) | Workflow automation tool on FreeBSD. | [:simple-github:](https://github.com/daemonless/n8n){target=_blank} | [:material-link-variant:](https://github.com/n8n-io/n8n){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/n8n/build.yaml?label=)](https://github.com/daemonless/n8n/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/n8n?label=)](https://github.com/daemonless/n8n/commits){target=_blank} |
+| [:simple-nextcloud: Nextcloud](nextcloud.md) | Nextcloud self-hosted cloud on FreeBSD. | [:simple-github:](https://github.com/daemonless/nextcloud){target=_blank} | [:material-link-variant:](https://github.com/nextcloud/server){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/nextcloud/build.yaml?label=)](https://github.com/daemonless/nextcloud/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/nextcloud?label=)](https://github.com/daemonless/nextcloud/commits){target=_blank} |
+| [:material-speedometer: OpenSpeedTest](openspeedtest.md) | Self-hosted HTML5 Network Speed Test on FreeBSD. | [:simple-github:](https://github.com/daemonless/openspeedtest){target=_blank} | [:material-link-variant:](https://github.com/openspeedtest/Speed-Test){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/openspeedtest/build.yaml?label=)](https://github.com/daemonless/openspeedtest/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/openspeedtest?label=)](https://github.com/daemonless/openspeedtest/commits){target=_blank} |
+| [:material-view-dashboard: Organizr](organizr.md) | HTPC/Homelab Services Organizer on FreeBSD. | [:simple-github:](https://github.com/daemonless/organizr){target=_blank} | [:material-link-variant:](https://github.com/causefx/Organizr){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/organizr/build.yaml?label=)](https://github.com/daemonless/organizr/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/organizr?label=)](https://github.com/daemonless/organizr/commits){target=_blank} |
+| [:material-pulse: SmokePing](smokeping.md) | SmokePing network latency monitor on FreeBSD. | [:simple-github:](https://github.com/daemonless/smokeping){target=_blank} | [:material-link-variant:](https://github.com/oetiker/smokeping){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/smokeping/build.yaml?label=)](https://github.com/daemonless/smokeping/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/smokeping?label=)](https://github.com/daemonless/smokeping/commits){target=_blank} |
+| [:material-access-point-network: UniFi Network](unifi.md) | UniFi Network Application on FreeBSD. | [:simple-github:](https://github.com/daemonless/unifi){target=_blank} | [:material-link-variant:](https://ui.com/){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/unifi/build.yaml?label=)](https://github.com/daemonless/unifi/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/unifi?label=)](https://github.com/daemonless/unifi/commits){target=_blank} |
+| [:material-chart-line: Uptime Kuma](uptime-kuma.md) | A fancy self-hosted monitoring tool on FreeBSD. | [:simple-github:](https://github.com/daemonless/uptime-kuma){target=_blank} | [:material-link-variant:](https://github.com/louislam/uptime-kuma){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/uptime-kuma/build.yaml?label=)](https://github.com/daemonless/uptime-kuma/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/uptime-kuma?label=)](https://github.com/daemonless/uptime-kuma/commits){target=_blank} |
+| [:simple-bitwarden: Vaultwarden](vaultwarden.md) | Vaultwarden (Bitwarden compatible backend) on FreeBSD. | [:simple-github:](https://github.com/daemonless/vaultwarden){target=_blank} | [:material-link-variant:](https://github.com/dani-garcia/vaultwarden){target=_blank} | [![](https://img.shields.io/github/actions/workflow/status/daemonless/vaultwarden/build.yaml?label=)](https://github.com/daemonless/vaultwarden/actions/workflows/build.yaml){target=_blank} | [![](https://img.shields.io/github/last-commit/daemonless/vaultwarden?label=)](https://github.com/daemonless/vaultwarden/commits){target=_blank} |
 
-## Image Tags
-
-| Tag | Source | Description |
-|-----|--------|-------------|
-| `:latest` | Upstream releases | Newest version from project |
-| `:pkg` | FreeBSD quarterly | Stable, tested in ports |
-| `:pkg-latest` | FreeBSD latest | Rolling package updates |

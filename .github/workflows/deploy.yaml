@@ -4,11 +4,13 @@ on:
   push:
     branches: [main]
   schedule:
-    - cron: "0 */6 * * *" # Every 6 hours
+    - cron: "0 8,20 * * *"
   workflow_dispatch:
+  repository_dispatch:
+    types: [status-update]
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -19,8 +21,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    outputs:
-      has_changes: ${{ steps.check.outputs.has_changes }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -46,6 +46,15 @@ jobs:
         run: |
           cd daemonless-io
           make generate
+
+      - name: Commit generated changes
+        run: |
+          cd daemonless-io
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/ mkdocs.yaml placeholder-plugin.yaml
+          git diff --staged --quiet || git commit -m "Update generated docs and status [skip ci]"
+          git push
 
       - name: Build site
         run: |
@@ -78,18 +87,10 @@ jobs:
               "keyLocation": "https://daemonless.io/9165b253e91b4c86a023f24a2335428b.txt",
               "urlList": [
                 "https://daemonless.io/",
-                "https://daemonless.io/quick-start/",
-                "https://daemonless.io/architecture/",
                 "https://daemonless.io/status/",
                 "https://daemonless.io/images/",
+                "https://daemonless.io/guides/quick-start/",
                 "https://daemonless.io/guides/dbuild/",
-                "https://daemonless.io/guides/cit/",
-                "https://daemonless.io/guides/ci-cd/",
-                "https://daemonless.io/guides/tagging/",
-                "https://daemonless.io/guides/permissions/",
-                "https://daemonless.io/guides/zfs/",
-                "https://daemonless.io/guides/development/",
-                "https://daemonless.io/guides/oci-compliance/",
                 "https://daemonless.io/community/",
                 "https://daemonless.io/philosophy/"
               ]

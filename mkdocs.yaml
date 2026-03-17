@@ -88,7 +88,7 @@ nav:
   - Home: index.md
   - Fleet:
     - Overview: images/index.md
-    - Status: status.md
+    - Version Status: status.md
     - Base:
       - Arr Base: images/arr-base.md
       - FreeBSD Base: images/base.md

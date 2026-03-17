@@ -3,6 +3,8 @@
 Generate MkDocs documentation from compose.yaml files in daemonless repos.
 Produces docs with interactive placeholder support.
 """
+import json
+import subprocess
 import sys
 from pathlib import Path
 import yaml
@@ -245,7 +247,7 @@ def update_mkdocs_yaml(configs):
             if not processed:
                 new_lines.append("  - Fleet:")
                 new_lines.append("    - Overview: images/index.md")
-                new_lines.append("    - Status: status.md")
+                new_lines.append("    - Version Status: status.md")
                 # Use VALID_CATEGORIES from dbuild for navigation ordering
                 for cat in VALID_CATEGORIES + ["Uncategorized"]:
                     if cat not in by_cat:
@@ -264,6 +266,39 @@ def update_mkdocs_yaml(configs):
 
     mkdocs_path.write_text("\n".join(new_lines) + "\n", encoding='utf-8')
     print("Updated mkdocs.yaml")
+
+def generate_status_page(configs):
+    """Generate docs/images/index.md (build overview) and docs/status.md (version status)."""
+    try:
+        overview_tmpl = env.get_template("status.mkdocs.j2")
+        version_tmpl = env.get_template("version-status.mkdocs.j2")
+    except jinja2.TemplateNotFound as e:
+        print(f"Warning: template not found ({e}), skipping status pages")
+        return
+
+    # Fleet overview
+    content = overview_tmpl.render(configs=configs, categories=VALID_CATEGORIES + ["Uncategorized"])
+    (REPO_ROOT / "docs" / "images" / "index.md").write_text(content, encoding='utf-8')
+    print("Generated docs/images/index.md")
+
+    # Version status
+    versions_file = REPO_ROOT / "daemonless-versions.json"
+    last_check = "unknown"
+    if versions_file.exists():
+        last_check = json.loads(versions_file.read_text()).get("last_check", "unknown")
+
+    compare = SCRIPT_DIR / "compare-versions.py"
+    version_data = {}
+    if compare.exists():
+        result = subprocess.run([sys.executable, str(compare)],
+                                capture_output=True, text=True)
+        if result.stdout.strip():
+            version_data = json.loads(result.stdout)
+
+    content = version_tmpl.render(last_check=last_check, **version_data)
+    (REPO_ROOT / "docs" / "status.md").write_text(content, encoding='utf-8')
+    print("Generated docs/status.md")
+
 
 def main():
     """Main entry point for the documentation generator."""
@@ -319,8 +354,8 @@ def main():
 
     # Update supporting files
     update_placeholders(configs)
-    generate_index_page(configs)
     update_mkdocs_yaml(configs)
+    generate_status_page(configs)
 
     print(f"\nGenerated {len(configs)} image docs")
 

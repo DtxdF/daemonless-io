@@ -32,6 +32,8 @@ generate: generate-guides generate-images generate-architecture
 # Generate image documentation from compose.yaml in sub-repos
 generate-images:
 	@echo "==> Generating image documentation..."
+	@curl -sL https://raw.githubusercontent.com/daemonless/daemonless/main/daemonless-versions.json \
+		-o daemonless-versions.json 2>/dev/null || true
 	$(PYTHON) $(SCRIPTS_DIR)/generate_docs.py
 
 # Generate dbuild guides from dbuild source using Jinja2 templates
