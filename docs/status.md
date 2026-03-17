@@ -14,18 +14,17 @@ description: "Real-time version tracking for every Daemonless image. See which c
 | :material-check-circle:{ .current } | [bazarr](https://github.com/daemonless/bazarr/actions/workflows/build.yaml) | pkg | 1.5.2_3 |
 | :material-check-circle:{ .current } | [bazarr](https://github.com/daemonless/bazarr/actions/workflows/build.yaml) | pkg-latest | 1.5.4 |
 | :material-check-circle:{ .current } | [bazarr](https://github.com/daemonless/bazarr/actions/workflows/build.yaml) | latest | 1.5.6 |
-| :material-check-circle:{ .current } | [booklore](https://github.com/daemonless/booklore/actions/workflows/build.yaml) | latest | 2.2.1 |
 | :material-check-circle:{ .current } | [cloudflared](https://github.com/daemonless/cloudflared/actions/workflows/build.yaml) | pkg | 2026.2.0_1 |
 | :material-check-circle:{ .current } | [cloudflared](https://github.com/daemonless/cloudflared/actions/workflows/build.yaml) | pkg-latest | 2026.2.0_1 |
 | :material-check-circle:{ .current } | [gitea](https://github.com/daemonless/gitea/actions/workflows/build.yaml) | pkg | 1.24.2_10 |
 | :material-check-circle:{ .current } | [gitea](https://github.com/daemonless/gitea/actions/workflows/build.yaml) | pkg-latest | 1.25.4_1 |
-| :material-check-circle:{ .current } | [home-assistant](https://github.com/daemonless/home-assistant/actions/workflows/build.yaml) | latest | 2026.3.1 |
+| :material-close-circle:{ .outdated } | [home-assistant](https://github.com/daemonless/home-assistant/actions/workflows/build.yaml) | latest | 2026.3.1 → **2026.3.2** |
 | :material-check-circle:{ .current } | [homepage](https://github.com/daemonless/homepage/actions/workflows/build.yaml) | pkg | 1.8.0 |
 | :material-check-circle:{ .current } | [homepage](https://github.com/daemonless/homepage/actions/workflows/build.yaml) | pkg-latest | 1.10.1 |
 | :material-check-circle:{ .current } | [homepage](https://github.com/daemonless/homepage/actions/workflows/build.yaml) | latest | 1.11.0 |
 | :material-check-circle:{ .current } | [hugo](https://github.com/daemonless/hugo/actions/workflows/build.yaml) | pkg | 0.154.5_3_1 |
 | :material-check-circle:{ .current } | [hugo](https://github.com/daemonless/hugo/actions/workflows/build.yaml) | pkg-latest | 0.157.0_1_1 |
-| :material-check-circle:{ .current } | [hugo](https://github.com/daemonless/hugo/actions/workflows/build.yaml) | latest | 0.157.0 |
+| :material-close-circle:{ .outdated } | [hugo](https://github.com/daemonless/hugo/actions/workflows/build.yaml) | latest | 0.157.0 → **0.158.0** |
 | :material-check-circle:{ .current } | [immich-ml](https://github.com/daemonless/immich-ml/actions/workflows/build.yaml) | latest | 2.5.6 |
 | :material-check-circle:{ .current } | [immich-server](https://github.com/daemonless/immich-server/actions/workflows/build.yaml) | latest | 2.5.6 |
 | :material-check-circle:{ .current } | [jellyfin](https://github.com/daemonless/jellyfin/actions/workflows/build.yaml) | pkg | 10.11.5 |
@@ -40,7 +39,6 @@ description: "Real-time version tracking for every Daemonless image. See which c
 | :material-check-circle:{ .current } | [nextcloud](https://github.com/daemonless/nextcloud/actions/workflows/build.yaml) | pkg | 32.0.3_4 |
 | :material-check-circle:{ .current } | [nextcloud](https://github.com/daemonless/nextcloud/actions/workflows/build.yaml) | pkg-latest | 33.0.0 |
 | :material-check-circle:{ .current } | [openspeedtest](https://github.com/daemonless/openspeedtest/actions/workflows/build.yaml) | latest | 2.0.5 |
-| :material-check-circle:{ .current } | [overseerr](https://github.com/daemonless/overseerr/actions/workflows/build.yaml) | latest | 1.35.0 |
 | :material-check-circle:{ .current } | [plex](https://github.com/daemonless/plex/actions/workflows/build.yaml) | latest | 1.43.0.10492-121068a07 |
 | :material-check-circle:{ .current } | [postgres-14](https://github.com/daemonless/postgres/actions/workflows/build.yaml) | pkg | 14.20_1 |
 | :material-check-circle:{ .current } | [postgres-14](https://github.com/daemonless/postgres/actions/workflows/build.yaml) | pkg-latest | 14.22 |
@@ -87,5 +85,5 @@ description: "Real-time version tracking for every Daemonless image. See which c
 
 ## Summary
 
-- :material-check-circle:{ .current } Current: 39
-- :material-close-circle:{ .outdated } Outdated: 0
+- :material-check-circle:{ .current } Current: 35
+- :material-close-circle:{ .outdated } Outdated: 2
