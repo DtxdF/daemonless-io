@@ -26,7 +26,21 @@ The stock ocijail runtime doesn't provide a way to pass generic `allow.*` flags 
 
 ## Installation
 
-### Option 1: Manual Ports Method
+### Option 1: Pre-built Package (Recommended)
+
+Pre-built packages are published by [daemonless/freebsd-ports](https://github.com/daemonless/freebsd-ports) — no compilation required.
+
+=== "amd64"
+    ```bash
+    doas pkg add https://github.com/daemonless/freebsd-ports/releases/download/v0.4.0-patched/ocijail-0.4.0_3-amd64.pkg
+    ```
+
+=== "aarch64"
+    ```bash
+    doas pkg add https://github.com/daemonless/freebsd-ports/releases/download/v0.4.0-patched/ocijail-0.4.0_3-aarch64.pkg
+    ```
+
+### Option 2: Manual Ports Method
 
 ```bash
 # Fetch patch
@@ -42,7 +56,7 @@ make reinstall clean
 rm /usr/ports/sysutils/ocijail/files/patch-daemonless-annotations
 ```
 
-### Option 2: Automated Script
+### Option 3: Automated Script
 
 ```bash
 git clone https://github.com/daemonless/daemonless.git
@@ -57,7 +71,7 @@ The script will:
 3. Build using the ports framework or bazel
 4. Back up original and install patched version to `/usr/local/bin/ocijail`
 
-### Option 3: Manual Build
+### Option 4: Manual Build
 
 ```bash
 # Requires bazel5 and git (on FreeBSD 15.0)
