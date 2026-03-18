@@ -6,4 +6,5 @@ test_site/
 .cache/
 serve.log
 serve_debug.log
+daemonless-versions.json
 *.png
