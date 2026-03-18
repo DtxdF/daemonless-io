@@ -28,6 +28,7 @@ from dbuild.config import load as load_dbuild_config, VALID_CATEGORIES
 from dbuild.docs import _enrich_metadata, SHARED_PATHS
 
 TEMPLATE_DIR = DBUILD_REPO / "dbuild" / "templates"
+LOCAL_TEMPLATE_DIR = SCRIPT_DIR / "templates"
 DOCS_DIR = REPO_ROOT / "docs" / "images"
 PLACEHOLDER_PLUGIN = REPO_ROOT / "placeholder-plugin.yaml"
 
@@ -38,8 +39,11 @@ DEFAULT_CONFIG_ROOT = "/path/to/containers"
 # Skip these repos (not container images)
 SKIP_REPOS = {"daemonless", "daemonless-io", "cit", "freebsd-ports", "dbuild"}
 
-# Load Template from dbuild
-env = jinja2.Environment(loader=jinja2.FileSystemLoader(str(TEMPLATE_DIR)))
+# Local templates override dbuild templates
+env = jinja2.Environment(loader=jinja2.ChoiceLoader([
+    jinja2.FileSystemLoader(str(LOCAL_TEMPLATE_DIR)),
+    jinja2.FileSystemLoader(str(TEMPLATE_DIR)),
+]))
 template = env.get_template("README.mkdocs.j2")
 
 def get_repo_config(repo_path):
