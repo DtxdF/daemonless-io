@@ -61,12 +61,6 @@
 
 // AppJail Bundle Download
 (function () {
-    const FILENAME_MAP = {
-        '.env': '.env',
-        'appjail-director.yml': 'appjail-director.yml',
-        'Makejail': 'Makejail',
-    };
-
     function getCodeBlocks(block) {
         const result = [];
         const children = Array.from(block.querySelectorAll('p, .highlight'));
@@ -75,8 +69,7 @@
             if (el.tagName === 'P') {
                 const strong = el.querySelector('strong');
                 if (strong) {
-                    const label = strong.textContent.replace(':', '').trim();
-                    pendingFilename = FILENAME_MAP[label] || null;
+                    pendingFilename = strong.textContent.replace(':', '').trim() || null;
                 }
             } else if (el.classList.contains('highlight') && pendingFilename) {
                 const code = el.querySelector('code');
