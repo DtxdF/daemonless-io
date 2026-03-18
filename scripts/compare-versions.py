@@ -155,7 +155,7 @@ def main():
         variant = versions.get("_variant")
 
         deployed = get_deployed_versions(base_name, variant)
-        deployed_all[name] = deployed
+        deployed_all[name] = {"_base": base_name, **deployed}
 
         if not deployed:
             errors.append({"name": name, "error": "No tags found in ghcr.io"})
