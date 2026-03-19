@@ -8,7 +8,7 @@ Source: dbuild templates
 [![Build Status](https://img.shields.io/github/actions/workflow/status/daemonless/bazarr/build.yaml?style=flat-square&label=Build&color=green)](https://github.com/daemonless/bazarr/actions)
 [![Last Commit](https://img.shields.io/github/last-commit/daemonless/bazarr?style=flat-square&label=Last+Commit&color=blue)](https://github.com/daemonless/bazarr/commits)
 
-Bazarr is a companion application to Sonarr and Radarr. It can manage and download subtitles based on your requirements. You define your preferences by TV show or movie and Bazarr takes care of everything for you.
+Bazarr is a companion application to Sonarr and Radarr. It manages and downloads subtitles based on your requirements. You define your preferences by TV show or movie and Bazarr takes care of everything for you.
 
 | | |
 |---|---|
@@ -52,6 +52,57 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
         ports:
           - @BAZARR_PORT@:6767
         restart: unless-stopped
+    ```
+
+
+=== ":appjail-appjail: AppJail Director"
+
+    **.env**:
+
+    ```
+    DIRECTOR_PROJECT=bazarr
+    PUID=@PUID@
+    PGID=@PGID@
+    TZ=@TZ@
+    ```
+
+    **appjail-director.yml**:
+
+    ```yaml
+    options:
+      - virtualnet: ':<random> default'
+      - nat:
+    services:
+      bazarr:
+        name: bazarr
+        options:
+          - container: 'boot args:--pull'
+        oci:
+          user: root
+          environment:
+            - PUID: !ENV '${PUID}'
+            - PGID: !ENV '${PGID}'
+            - TZ: !ENV '${TZ}'
+        volumes:
+          - BAZARR_CONFIG_PATH: /config
+          - MOVIES_PATH: /movies
+          - TV_PATH: /tv
+    volumes:
+      BAZARR_CONFIG_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@BAZARR_CONFIG_PATH@'
+      MOVIES_PATH:
+        device: '@MOVIES_PATH@'
+      TV_PATH:
+        device: '@TV_PATH@'
+    ```
+
+    **Makejail**:
+
+    ```
+    ARG tag=latest
+
+    OPTION overwrite=force
+    OPTION from=@REGISTRY@/bazarr:${tag}
     ```
 
 

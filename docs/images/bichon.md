@@ -8,7 +8,7 @@ Source: dbuild templates
 [![Build Status](https://img.shields.io/github/actions/workflow/status/daemonless/bichon/build.yaml?style=flat-square&label=Build&color=green)](https://github.com/daemonless/bichon/actions)
 [![Last Commit](https://img.shields.io/github/last-commit/daemonless/bichon?style=flat-square&label=Last+Commit&color=blue)](https://github.com/daemonless/bichon/commits)
 
-High-performance email archiver and search tool on FreeBSD.
+A lightweight, high-performance Rust email archiver with WebUI.
 
 | | |
 |---|---|
@@ -51,6 +51,53 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
         healthcheck:
           test: ["CMD", "{'port': 15630, 'path': '/'}"]
         restart: unless-stopped
+    ```
+
+
+=== ":appjail-appjail: AppJail Director"
+
+    **.env**:
+
+    ```
+    DIRECTOR_PROJECT=bichon
+    PUID=@PUID@
+    PGID=@PGID@
+    TZ=@TZ@
+    BICHON_ENCRYPT_PASSWORD=changeme
+    ```
+
+    **appjail-director.yml**:
+
+    ```yaml
+    options:
+      - virtualnet: ':<random> default'
+      - nat:
+    services:
+      bichon:
+        name: bichon
+        options:
+          - container: 'boot args:--pull'
+        oci:
+          user: root
+          environment:
+            - PUID: !ENV '${PUID}'
+            - PGID: !ENV '${PGID}'
+            - TZ: !ENV '${TZ}'
+            - BICHON_ENCRYPT_PASSWORD: !ENV '${BICHON_ENCRYPT_PASSWORD}'
+        volumes:
+          - BICHON_DATA_PATH: /data
+    volumes:
+      BICHON_DATA_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@BICHON_DATA_PATH@'
+    ```
+
+    **Makejail**:
+
+    ```
+    ARG tag=latest
+
+    OPTION overwrite=force
+    OPTION from=@REGISTRY@/bichon:${tag}
     ```
 
 

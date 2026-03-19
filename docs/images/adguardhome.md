@@ -8,7 +8,7 @@ Source: dbuild templates
 [![Build Status](https://img.shields.io/github/actions/workflow/status/daemonless/adguardhome/build.yaml?style=flat-square&label=Build&color=green)](https://github.com/daemonless/adguardhome/actions)
 [![Last Commit](https://img.shields.io/github/last-commit/daemonless/adguardhome?style=flat-square&label=Last+Commit&color=blue)](https://github.com/daemonless/adguardhome/commits)
 
-Network-wide ads & trackers blocking DNS server on FreeBSD.
+Network-wide ad and tracker blocking DNS server. Covers all devices on your network with no client-side software — includes DoH, DoT, DoQ, and a built-in DHCP server.
 
 | | |
 |---|---|
@@ -65,6 +65,54 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
           - 6060:6060
           - 8853:8853
         restart: unless-stopped
+    ```
+
+
+=== ":appjail-appjail: AppJail Director"
+
+    **.env**:
+
+    ```
+    DIRECTOR_PROJECT=adguardhome
+    PUID=@PUID@
+    PGID=@PGID@
+    TZ=@TZ@
+    ```
+
+    **appjail-director.yml**:
+
+    ```yaml
+    options:
+      - virtualnet: ':<random> default'
+      - nat:
+    services:
+      adguardhome:
+        name: adguardhome
+        options:
+          - container: 'boot args:--pull'
+        oci:
+          user: root
+          environment:
+            - PUID: !ENV '${PUID}'
+            - PGID: !ENV '${PGID}'
+            - TZ: !ENV '${TZ}'
+        volumes:
+          - ADGUARDHOME_OPT_ADGUARDHOME_CONF_PATH: /opt/adguardhome/conf
+          - ADGUARDHOME_OPT_ADGUARDHOME_WORK_PATH: /opt/adguardhome/work
+    volumes:
+      ADGUARDHOME_OPT_ADGUARDHOME_CONF_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@ADGUARDHOME_OPT_ADGUARDHOME_CONF_PATH@'
+      ADGUARDHOME_OPT_ADGUARDHOME_WORK_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@ADGUARDHOME_OPT_ADGUARDHOME_WORK_PATH@'
+    ```
+
+    **Makejail**:
+
+    ```
+    ARG tag=latest
+
+    OPTION overwrite=force
+    OPTION from=@REGISTRY@/adguardhome:${tag}
     ```
 
 
