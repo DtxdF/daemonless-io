@@ -8,7 +8,7 @@ Source: dbuild templates
 [![Build Status](https://img.shields.io/github/actions/workflow/status/daemonless/n8n/build.yaml?style=flat-square&label=Build&color=green)](https://github.com/daemonless/n8n/actions)
 [![Last Commit](https://img.shields.io/github/last-commit/daemonless/n8n?style=flat-square&label=Last+Commit&color=blue)](https://github.com/daemonless/n8n/commits)
 
-Workflow automation tool on FreeBSD.
+Fair-code workflow automation platform with native AI capabilities — combine visual building with custom code and 400+ integrations.
 
 | | |
 |---|---|
@@ -49,6 +49,53 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
         ports:
           - @N8N_PORT@:5678
         restart: unless-stopped
+    ```
+
+
+=== ":appjail-appjail: AppJail Director"
+
+    **.env**:
+
+    ```
+    DIRECTOR_PROJECT=n8n
+    N8N_ENCRYPTION_KEY=your-encryption-key-here
+    PUID=@PUID@
+    PGID=@PGID@
+    TZ=@TZ@
+    ```
+
+    **appjail-director.yml**:
+
+    ```yaml
+    options:
+      - virtualnet: ':<random> default'
+      - nat:
+    services:
+      n8n:
+        name: n8n
+        options:
+          - container: 'boot args:--pull'
+        oci:
+          user: root
+          environment:
+            - N8N_ENCRYPTION_KEY: !ENV '${N8N_ENCRYPTION_KEY}'
+            - PUID: !ENV '${PUID}'
+            - PGID: !ENV '${PGID}'
+            - TZ: !ENV '${TZ}'
+        volumes:
+          - N8N_CONFIG_PATH: /config
+    volumes:
+      N8N_CONFIG_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@N8N_CONFIG_PATH@'
+    ```
+
+    **Makejail**:
+
+    ```
+    ARG tag=latest
+
+    OPTION overwrite=force
+    OPTION from=@REGISTRY@/n8n:${tag}
     ```
 
 

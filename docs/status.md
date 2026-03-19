@@ -8,8 +8,8 @@ description: "Real-time version tracking for every Daemonless image."
 
 ## Summary
 
-- :material-check-circle:{ .current } Current: 77
-- :material-close-circle:{ .outdated } Outdated: 0
+- :material-check-circle:{ .current } Current: 75
+- :material-close-circle:{ .outdated } Outdated: 2
 
 
 
@@ -36,8 +36,8 @@ description: "Real-time version tracking for every Daemonless image."
 | :material-check-circle:{ .current } | [hugo](images/hugo.md) | pkg | 0.154.5_3_1 | [:simple-githubactions:](https://github.com/daemonless/hugo/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [hugo](images/hugo.md) | pkg-latest | 0.157.0_1_1 | [:simple-githubactions:](https://github.com/daemonless/hugo/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [hugo](images/hugo.md) | latest | 0.158.0 | [:simple-githubactions:](https://github.com/daemonless/hugo/actions/workflows/build.yaml) |
-| :material-check-circle:{ .current } | [immich-ml](images/immich-ml.md) | latest | 2.5.6 | [:simple-githubactions:](https://github.com/daemonless/immich-ml/actions/workflows/build.yaml) |
-| :material-check-circle:{ .current } | [immich-server](images/immich-server.md) | latest | 2.5.6 | [:simple-githubactions:](https://github.com/daemonless/immich-server/actions/workflows/build.yaml) |
+| :material-close-circle:{ .outdated } | [immich-ml](images/immich-ml.md) | latest | 2.6.1 → **2.5.6** | [:simple-githubactions:](https://github.com/daemonless/immich-ml/actions/workflows/build.yaml) |
+| :material-close-circle:{ .outdated } | [immich-server](images/immich-server.md) | latest | 2.6.1 → **2.5.6** | [:simple-githubactions:](https://github.com/daemonless/immich-server/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [jellyfin](images/jellyfin.md) | pkg | 10.11.5 | [:simple-githubactions:](https://github.com/daemonless/jellyfin/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [jellyfin](images/jellyfin.md) | pkg-latest | 10.11.6 | [:simple-githubactions:](https://github.com/daemonless/jellyfin/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [lidarr](images/lidarr.md) | pkg | 2.13.3.4711_1 | [:simple-githubactions:](https://github.com/daemonless/lidarr/actions/workflows/build.yaml) |
