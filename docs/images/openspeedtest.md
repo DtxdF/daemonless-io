@@ -12,7 +12,7 @@ Self-hosted HTML5 Network Speed Test on FreeBSD.
 
 | | |
 |---|---|
-| **Port** | 3005 |
+| **Port** | 3000 |
 | **Registry** | `ghcr.io/daemonless/openspeedtest` |
 | **Source** | [https://github.com/openspeedtest/Speed-Test](https://github.com/openspeedtest/Speed-Test) |
 | **Website** | [https://openspeedtest.com/](https://openspeedtest.com/) |
@@ -44,8 +44,48 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
           - PGID=@PGID@
           - TZ=@TZ@
         ports:
-          - @OPENSPEEDTEST_PORT@:3005
+          - @OPENSPEEDTEST_PORT@:3000
         restart: unless-stopped
+    ```
+
+
+=== ":appjail-appjail: AppJail Director"
+
+    **.env**:
+
+    ```
+    DIRECTOR_PROJECT=openspeedtest
+    PUID=@PUID@
+    PGID=@PGID@
+    TZ=@TZ@
+    ```
+
+    **appjail-director.yml**:
+
+    ```yaml
+    options:
+      - virtualnet: ':<random> default'
+      - nat:
+    services:
+      openspeedtest:
+        name: openspeedtest
+        options:
+          - container: 'boot args:--pull'
+        oci:
+          user: root
+          environment:
+            - PUID: !ENV '${PUID}'
+            - PGID: !ENV '${PGID}'
+            - TZ: !ENV '${TZ}'
+    ```
+
+    **Makejail**:
+
+    ```
+    ARG tag=latest
+
+    OPTION overwrite=force
+    OPTION from=@REGISTRY@/openspeedtest:${tag}
     ```
 
 
@@ -53,7 +93,7 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
 
     ```bash
     podman run -d --name openspeedtest \
-      -p @OPENSPEEDTEST_PORT@:3005 \
+      -p @OPENSPEEDTEST_PORT@:3000 \
       -e PUID=@PUID@ \
       -e PGID=@PGID@ \
       -e TZ=@TZ@ \
@@ -74,7 +114,7 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
           PGID: "@PGID@"
           TZ: "@TZ@"
         ports:
-          - "@OPENSPEEDTEST_PORT@:3005"
+          - "@OPENSPEEDTEST_PORT@:3000"
     ```
 
 
@@ -99,7 +139,7 @@ Access at: `http://localhost:@OPENSPEEDTEST_PORT@`
 
 | Port | Protocol | Description |
 |------|----------|-------------|
-| `3005` | TCP |  |
+| `3000` | TCP | Web UI |
 
 
 !!! info "Implementation Details"

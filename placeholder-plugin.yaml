@@ -569,7 +569,7 @@ placeholders:
     default: traefik
     description: Traefik /config Path
   OPENSPEEDTEST_PORT:
-    default: '3005'
+    default: '3000'
     description: OpenSpeedTest Host Port
     validators:
     - port_number
@@ -657,7 +657,7 @@ placeholders:
     default: unifi
     description: UniFi Network /config Path
   ORGANIZR_PORT:
-    default: '8083'
+    default: '80'
     description: Organizr Host Port
     validators:
     - port_number
@@ -743,7 +743,7 @@ placeholders:
     default: n8n
     description: n8n /config Path
   SMOKEPING_PORT:
-    default: '8081'
+    default: '80'
     description: SmokePing Host Port
     validators:
     - port_number

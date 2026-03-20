@@ -8,7 +8,7 @@ Source: dbuild templates
 [![Build Status](https://img.shields.io/github/actions/workflow/status/daemonless/sabnzbd/build.yaml?style=flat-square&label=Build&color=green)](https://github.com/daemonless/sabnzbd/actions)
 [![Last Commit](https://img.shields.io/github/last-commit/daemonless/sabnzbd?style=flat-square&label=Last+Commit&color=blue)](https://github.com/daemonless/sabnzbd/commits)
 
-SABnzbd Usenet downloader on FreeBSD.
+Free and easy binary newsreader that automates the downloading and processing of Usenet content.
 
 | | |
 |---|---|
@@ -51,6 +51,54 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
         ports:
           - @SABNZBD_PORT@:8080
         restart: unless-stopped
+    ```
+
+
+=== ":appjail-appjail: AppJail Director"
+
+    **.env**:
+
+    ```
+    DIRECTOR_PROJECT=sabnzbd
+    PUID=@PUID@
+    PGID=@PGID@
+    TZ=@TZ@
+    ```
+
+    **appjail-director.yml**:
+
+    ```yaml
+    options:
+      - virtualnet: ':<random> default'
+      - nat:
+    services:
+      sabnzbd:
+        name: sabnzbd
+        options:
+          - container: 'boot args:--pull'
+        oci:
+          user: root
+          environment:
+            - PUID: !ENV '${PUID}'
+            - PGID: !ENV '${PGID}'
+            - TZ: !ENV '${TZ}'
+        volumes:
+          - SABNZBD_CONFIG_PATH: /config
+          - DOWNLOADS_PATH: /downloads
+    volumes:
+      SABNZBD_CONFIG_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@SABNZBD_CONFIG_PATH@'
+      DOWNLOADS_PATH:
+        device: '@DOWNLOADS_PATH@'
+    ```
+
+    **Makejail**:
+
+    ```
+    ARG tag=latest
+
+    OPTION overwrite=force
+    OPTION from=@REGISTRY@/sabnzbd:${tag}
     ```
 
 

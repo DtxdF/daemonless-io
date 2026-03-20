@@ -55,6 +55,51 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
     ```
 
 
+=== ":appjail-appjail: AppJail Director"
+
+    **.env**:
+
+    ```
+    DIRECTOR_PROJECT=traefik
+    PUID=@PUID@
+    PGID=@PGID@
+    TZ=@TZ@
+    ```
+
+    **appjail-director.yml**:
+
+    ```yaml
+    options:
+      - virtualnet: ':<random> default'
+      - nat:
+    services:
+      traefik:
+        name: traefik
+        options:
+          - container: 'boot args:--pull'
+        oci:
+          user: root
+          environment:
+            - PUID: !ENV '${PUID}'
+            - PGID: !ENV '${PGID}'
+            - TZ: !ENV '${TZ}'
+        volumes:
+          - TRAEFIK_CONFIG_PATH: /config
+    volumes:
+      TRAEFIK_CONFIG_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@TRAEFIK_CONFIG_PATH@'
+    ```
+
+    **Makejail**:
+
+    ```
+    ARG tag=latest
+
+    OPTION overwrite=force
+    OPTION from=@REGISTRY@/traefik:${tag}
+    ```
+
+
 === ":material-console: Podman CLI"
 
     ```bash

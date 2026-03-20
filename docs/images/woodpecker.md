@@ -8,7 +8,7 @@ Source: dbuild templates
 [![Build Status](https://img.shields.io/github/actions/workflow/status/daemonless/woodpecker/build.yaml?style=flat-square&label=Build&color=green)](https://github.com/daemonless/woodpecker/actions)
 [![Last Commit](https://img.shields.io/github/last-commit/daemonless/woodpecker?style=flat-square&label=Last+Commit&color=blue)](https://github.com/daemonless/woodpecker/commits)
 
-Woodpecker CI server and agent on FreeBSD.
+Lightweight CI/CD pipeline server with a built-in agent — integrates with Gitea, GitHub, and GitLab for automated builds and deployments.
 
 | | |
 |---|---|
@@ -53,6 +53,59 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
           - @WOODPECKER_PORT@:8000
           - 9000:9000
         restart: unless-stopped
+    ```
+
+
+=== ":appjail-appjail: AppJail Director"
+
+    **.env**:
+
+    ```
+    DIRECTOR_PROJECT=woodpecker
+    WOODPECKER_SERVER_ENABLE=true
+    WOODPECKER_DATABASE_DRIVER=sqlite3
+    WOODPECKER_DATABASE_DATASOURCE=/config/woodpecker.sqlite
+    WOODPECKER_AGENT_SECRET=agent-secret
+    PUID=@PUID@
+    PGID=@PGID@
+    TZ=@TZ@
+    ```
+
+    **appjail-director.yml**:
+
+    ```yaml
+    options:
+      - virtualnet: ':<random> default'
+      - nat:
+    services:
+      woodpecker:
+        name: woodpecker
+        options:
+          - container: 'boot args:--pull'
+        oci:
+          user: root
+          environment:
+            - WOODPECKER_SERVER_ENABLE: !ENV '${WOODPECKER_SERVER_ENABLE}'
+            - WOODPECKER_DATABASE_DRIVER: !ENV '${WOODPECKER_DATABASE_DRIVER}'
+            - WOODPECKER_DATABASE_DATASOURCE: !ENV '${WOODPECKER_DATABASE_DATASOURCE}'
+            - WOODPECKER_AGENT_SECRET: !ENV '${WOODPECKER_AGENT_SECRET}'
+            - PUID: !ENV '${PUID}'
+            - PGID: !ENV '${PGID}'
+            - TZ: !ENV '${TZ}'
+        volumes:
+          - WOODPECKER_CONFIG_PATH: /config
+    volumes:
+      WOODPECKER_CONFIG_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@WOODPECKER_CONFIG_PATH@'
+    ```
+
+    **Makejail**:
+
+    ```
+    ARG tag=latest
+
+    OPTION overwrite=force
+    OPTION from=@REGISTRY@/woodpecker:${tag}
     ```
 
 

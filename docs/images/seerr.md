@@ -51,6 +51,51 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
     ```
 
 
+=== ":appjail-appjail: AppJail Director"
+
+    **.env**:
+
+    ```
+    DIRECTOR_PROJECT=seerr
+    PUID=@PUID@
+    PGID=@PGID@
+    TZ=@TZ@
+    ```
+
+    **appjail-director.yml**:
+
+    ```yaml
+    options:
+      - virtualnet: ':<random> default'
+      - nat:
+    services:
+      seerr:
+        name: seerr
+        options:
+          - container: 'boot args:--pull'
+        oci:
+          user: root
+          environment:
+            - PUID: !ENV '${PUID}'
+            - PGID: !ENV '${PGID}'
+            - TZ: !ENV '${TZ}'
+        volumes:
+          - SEERR_CONFIG_PATH: /config
+    volumes:
+      SEERR_CONFIG_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@SEERR_CONFIG_PATH@'
+    ```
+
+    **Makejail**:
+
+    ```
+    ARG tag=latest
+
+    OPTION overwrite=force
+    OPTION from=@REGISTRY@/seerr:${tag}
+    ```
+
+
 === ":material-console: Podman CLI"
 
     ```bash

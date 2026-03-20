@@ -8,7 +8,7 @@ Source: dbuild templates
 [![Build Status](https://img.shields.io/github/actions/workflow/status/daemonless/immich-server/build.yaml?style=flat-square&label=Build&color=green)](https://github.com/daemonless/immich-server/actions)
 [![Last Commit](https://img.shields.io/github/last-commit/daemonless/immich-server?style=flat-square&label=Last+Commit&color=blue)](https://github.com/daemonless/immich-server/commits)
 
-Immich photo management server on FreeBSD.
+Self-hosted photo and video backup and management server with web UI, mobile sync, and shared albums.
 
 | | |
 |---|---|
@@ -54,6 +54,64 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
         ports:
           - @IMMICH_SERVER_PORT@:2283
         restart: unless-stopped
+    ```
+
+
+=== ":appjail-appjail: AppJail Director"
+
+    **.env**:
+
+    ```
+    DIRECTOR_PROJECT=immich-server
+    DB_HOSTNAME=immich-postgres
+    DB_USERNAME=postgres
+    DB_PASSWORD=postgres
+    DB_DATABASE_NAME=immich
+    REDIS_HOSTNAME=immich-redis
+    PUID=@PUID@
+    PGID=@PGID@
+    TZ=@TZ@
+    ```
+
+    **appjail-director.yml**:
+
+    ```yaml
+    options:
+      - virtualnet: ':<random> default'
+      - nat:
+    services:
+      immich-server:
+        name: immich_server
+        options:
+          - container: 'boot args:--pull'
+        oci:
+          user: root
+          environment:
+            - DB_HOSTNAME: !ENV '${DB_HOSTNAME}'
+            - DB_USERNAME: !ENV '${DB_USERNAME}'
+            - DB_PASSWORD: !ENV '${DB_PASSWORD}'
+            - DB_DATABASE_NAME: !ENV '${DB_DATABASE_NAME}'
+            - REDIS_HOSTNAME: !ENV '${REDIS_HOSTNAME}'
+            - PUID: !ENV '${PUID}'
+            - PGID: !ENV '${PGID}'
+            - TZ: !ENV '${TZ}'
+        volumes:
+          - IMMICH_SERVER_CONFIG_PATH: /config
+          - IMMICH_SERVER_DATA_PATH: /data
+    volumes:
+      IMMICH_SERVER_CONFIG_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@IMMICH_SERVER_CONFIG_PATH@'
+      IMMICH_SERVER_DATA_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@IMMICH_SERVER_DATA_PATH@'
+    ```
+
+    **Makejail**:
+
+    ```
+    ARG tag=latest
+
+    OPTION overwrite=force
+    OPTION from=@REGISTRY@/immich-server:${tag}
     ```
 
 

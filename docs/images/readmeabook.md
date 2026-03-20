@@ -62,6 +62,70 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
     ```
 
 
+=== ":appjail-appjail: AppJail Director"
+
+    **.env**:
+
+    ```
+    DIRECTOR_PROJECT=readmeabook
+    PUID=@PUID@
+    PGID=@PGID@
+    TZ=@TZ@
+    LOG_LEVEL=info
+    ```
+
+    **appjail-director.yml**:
+
+    ```yaml
+    options:
+      - virtualnet: ':<random> default'
+      - nat:
+    services:
+      readmeabook:
+        name: readmeabook
+        options:
+          - container: 'boot args:--pull'
+          - template: !ENV '${PWD}/readmeabook.conf'
+        oci:
+          user: root
+          environment:
+            - PUID: !ENV '${PUID}'
+            - PGID: !ENV '${PGID}'
+            - TZ: !ENV '${TZ}'
+            - LOG_LEVEL: !ENV '${LOG_LEVEL}'
+        volumes:
+          - READMEABOOK_APP_CONFIG_PATH: /app/config
+          - READMEABOOK_APP_CACHE_PATH: /app/cache
+          - READMEABOOK_VAR_LIB_POSTGRESQL_DATA_PATH: /var/lib/postgresql/data
+          - READMEABOOK_VAR_LIB_REDIS_PATH: /var/lib/redis
+          - DOWNLOADS_PATH: /downloads
+          - MEDIA_PATH: /media
+    volumes:
+      READMEABOOK_APP_CONFIG_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@READMEABOOK_APP_CONFIG_PATH@'
+      READMEABOOK_APP_CACHE_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@READMEABOOK_APP_CACHE_PATH@'
+      READMEABOOK_VAR_LIB_POSTGRESQL_DATA_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@READMEABOOK_VAR_LIB_POSTGRESQL_DATA_PATH@'
+      READMEABOOK_VAR_LIB_REDIS_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@READMEABOOK_VAR_LIB_REDIS_PATH@'
+      DOWNLOADS_PATH:
+        device: '@DOWNLOADS_PATH@'
+      MEDIA_PATH:
+        device: '@MEDIA_PATH@'
+    ```
+
+    **Makejail**:
+
+    ```
+    ARG tag=latest
+
+    OPTION overwrite=force
+    OPTION from=@REGISTRY@/readmeabook:${tag}
+    SET allow.sysvipc=1
+    ```
+
+
 === ":material-console: Podman CLI"
 
     ```bash
@@ -143,6 +207,17 @@ Access at: `http://localhost:@READMEABOOK_PORT@`
 | Port | Protocol | Description |
 |------|----------|-------------|
 | `3030` | TCP | Web UI |
+
+ReadMeABook bundles PostgreSQL, which requires `allow.sysvipc` for shared memory. Create `readmeabook.conf` alongside `appjail-director.yml`:
+
+```
+exec.start: "/bin/sh /etc/rc"
+exec.stop: "/bin/sh /etc/rc.shutdown jail"
+mount.devfs
+persist
+allow.sysvipc
+```
+
 
 
 !!! info "Implementation Details"

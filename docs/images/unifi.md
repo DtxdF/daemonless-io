@@ -8,7 +8,7 @@ Source: dbuild templates
 [![Build Status](https://img.shields.io/github/actions/workflow/status/daemonless/unifi/build.yaml?style=flat-square&label=Build&color=green)](https://github.com/daemonless/unifi/actions)
 [![Last Commit](https://img.shields.io/github/last-commit/daemonless/unifi?style=flat-square&label=Last+Commit&color=blue)](https://github.com/daemonless/unifi/commits)
 
-UniFi Network Application on FreeBSD.
+Ubiquiti UniFi Network Application for managing UniFi access points, switches, and gateways.
 
 | | |
 |---|---|
@@ -61,6 +61,52 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
         annotations:
           org.freebsd.jail.allow.mlock: "true"
         restart: unless-stopped
+    ```
+
+
+=== ":appjail-appjail: AppJail Director"
+
+    **.env**:
+
+    ```
+    DIRECTOR_PROJECT=unifi
+    PUID=@PUID@
+    PGID=@PGID@
+    TZ=@TZ@
+    ```
+
+    **appjail-director.yml**:
+
+    ```yaml
+    options:
+      - virtualnet: ':<random> default'
+      - nat:
+    services:
+      unifi:
+        name: unifi
+        options:
+          - container: 'boot args:--pull'
+        oci:
+          user: root
+          environment:
+            - PUID: !ENV '${PUID}'
+            - PGID: !ENV '${PGID}'
+            - TZ: !ENV '${TZ}'
+        volumes:
+          - UNIFI_CONFIG_PATH: /config
+    volumes:
+      UNIFI_CONFIG_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@UNIFI_CONFIG_PATH@'
+    ```
+
+    **Makejail**:
+
+    ```
+    ARG tag=latest
+
+    OPTION overwrite=force
+    OPTION from=@REGISTRY@/unifi:${tag}
+    SET allow.mlock=1
     ```
 
 

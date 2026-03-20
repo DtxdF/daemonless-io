@@ -8,7 +8,7 @@ Source: dbuild templates
 [![Build Status](https://img.shields.io/github/actions/workflow/status/daemonless/transmission/build.yaml?style=flat-square&label=Build&color=green)](https://github.com/daemonless/transmission/actions)
 [![Last Commit](https://img.shields.io/github/last-commit/daemonless/transmission?style=flat-square&label=Last+Commit&color=blue)](https://github.com/daemonless/transmission/commits)
 
-Transmission BitTorrent client on FreeBSD.
+Lightweight BitTorrent client with a web UI for managing torrent downloads.
 
 | | |
 |---|---|
@@ -55,6 +55,61 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
           - 51413:51413
           - 51413:51413
         restart: unless-stopped
+    ```
+
+
+=== ":appjail-appjail: AppJail Director"
+
+    **.env**:
+
+    ```
+    DIRECTOR_PROJECT=transmission
+    PUID=@PUID@
+    PGID=@PGID@
+    TZ=@TZ@
+    USER=
+    PASS=<PASS>
+    ```
+
+    **appjail-director.yml**:
+
+    ```yaml
+    options:
+      - virtualnet: ':<random> default'
+      - nat:
+    services:
+      transmission:
+        name: transmission
+        options:
+          - container: 'boot args:--pull'
+        oci:
+          user: root
+          environment:
+            - PUID: !ENV '${PUID}'
+            - PGID: !ENV '${PGID}'
+            - TZ: !ENV '${TZ}'
+            - USER: !ENV '${USER}'
+            - PASS: !ENV '${PASS}'
+        volumes:
+          - TRANSMISSION_CONFIG_PATH: /config
+          - DOWNLOADS_PATH: /downloads
+          - TRANSMISSION_WATCH_PATH: /watch
+    volumes:
+      TRANSMISSION_CONFIG_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@TRANSMISSION_CONFIG_PATH@'
+      DOWNLOADS_PATH:
+        device: '@DOWNLOADS_PATH@'
+      TRANSMISSION_WATCH_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@TRANSMISSION_WATCH_PATH@'
+    ```
+
+    **Makejail**:
+
+    ```
+    ARG tag=latest
+
+    OPTION overwrite=force
+    OPTION from=@REGISTRY@/transmission:${tag}
     ```
 
 

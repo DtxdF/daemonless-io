@@ -12,7 +12,7 @@ HTPC/Homelab Services Organizer on FreeBSD.
 
 | | |
 |---|---|
-| **Port** | 8083 |
+| **Port** | 80 |
 | **Registry** | `ghcr.io/daemonless/organizr` |
 | **Source** | [https://github.com/causefx/Organizr](https://github.com/causefx/Organizr) |
 | **Website** | [https://organizr.app/](https://organizr.app/) |
@@ -46,8 +46,53 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
         volumes:
           - "@CONTAINER_CONFIG_ROOT@/@ORGANIZR_CONFIG_PATH@:/config"
         ports:
-          - @ORGANIZR_PORT@:8083
+          - @ORGANIZR_PORT@:80
         restart: unless-stopped
+    ```
+
+
+=== ":appjail-appjail: AppJail Director"
+
+    **.env**:
+
+    ```
+    DIRECTOR_PROJECT=organizr
+    PUID=@PUID@
+    PGID=@PGID@
+    TZ=@TZ@
+    ```
+
+    **appjail-director.yml**:
+
+    ```yaml
+    options:
+      - virtualnet: ':<random> default'
+      - nat:
+    services:
+      organizr:
+        name: organizr
+        options:
+          - container: 'boot args:--pull'
+        oci:
+          user: root
+          environment:
+            - PUID: !ENV '${PUID}'
+            - PGID: !ENV '${PGID}'
+            - TZ: !ENV '${TZ}'
+        volumes:
+          - ORGANIZR_CONFIG_PATH: /config
+    volumes:
+      ORGANIZR_CONFIG_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@ORGANIZR_CONFIG_PATH@'
+    ```
+
+    **Makejail**:
+
+    ```
+    ARG tag=latest
+
+    OPTION overwrite=force
+    OPTION from=@REGISTRY@/organizr:${tag}
     ```
 
 
@@ -55,7 +100,7 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
 
     ```bash
     podman run -d --name organizr \
-      -p @ORGANIZR_PORT@:8083 \
+      -p @ORGANIZR_PORT@:80 \
       -e PUID=@PUID@ \
       -e PGID=@PGID@ \
       -e TZ=@TZ@ \
@@ -77,7 +122,7 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
           PGID: "@PGID@"
           TZ: "@TZ@"
         ports:
-          - "@ORGANIZR_PORT@:8083"
+          - "@ORGANIZR_PORT@:80"
         volumes:
           - "@CONTAINER_CONFIG_ROOT@/@ORGANIZR_CONFIG_PATH@:/config"
     ```
@@ -110,7 +155,7 @@ Access at: `http://localhost:@ORGANIZR_PORT@`
 
 | Port | Protocol | Description |
 |------|----------|-------------|
-| `8083` | TCP |  |
+| `80` | TCP | Web UI |
 
 
 !!! info "Implementation Details"

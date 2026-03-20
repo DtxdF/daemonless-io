@@ -8,7 +8,7 @@ Source: dbuild templates
 [![Build Status](https://img.shields.io/github/actions/workflow/status/daemonless/tailscale/build.yaml?style=flat-square&label=Build&color=green)](https://github.com/daemonless/tailscale/actions)
 [![Last Commit](https://img.shields.io/github/last-commit/daemonless/tailscale?style=flat-square&label=Last+Commit&color=blue)](https://github.com/daemonless/tailscale/commits)
 
-Tailscale mesh VPN on FreeBSD.
+Zero-config mesh VPN built on WireGuard — securely connect your devices without port forwarding or firewall changes.
 
 | | |
 |---|---|
@@ -45,6 +45,49 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
         volumes:
           - "@CONTAINER_CONFIG_ROOT@/@TAILSCALE_CONFIG_PATH@:/config"
         restart: unless-stopped
+    ```
+
+
+=== ":appjail-appjail: AppJail Director"
+
+    **.env**:
+
+    ```
+    DIRECTOR_PROJECT=tailscale
+    TS_AUTHKEY=tskey-auth-xxxx
+    TS_EXTRA_ARGS=--advertise-exit-node
+    ```
+
+    **appjail-director.yml**:
+
+    ```yaml
+    options:
+      - virtualnet: ':<random> default'
+      - nat:
+    services:
+      tailscale:
+        name: tailscale
+        options:
+          - container: 'boot args:--pull'
+        oci:
+          user: root
+          environment:
+            - TS_AUTHKEY: !ENV '${TS_AUTHKEY}'
+            - TS_EXTRA_ARGS: !ENV '${TS_EXTRA_ARGS}'
+        volumes:
+          - TAILSCALE_CONFIG_PATH: /config
+    volumes:
+      TAILSCALE_CONFIG_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@TAILSCALE_CONFIG_PATH@'
+    ```
+
+    **Makejail**:
+
+    ```
+    ARG tag=latest
+
+    OPTION overwrite=force
+    OPTION from=@REGISTRY@/tailscale:${tag}
     ```
 
 

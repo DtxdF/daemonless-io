@@ -8,7 +8,7 @@ Source: dbuild templates
 [![Build Status](https://img.shields.io/github/actions/workflow/status/daemonless/uptime-kuma/build.yaml?style=flat-square&label=Build&color=green)](https://github.com/daemonless/uptime-kuma/actions)
 [![Last Commit](https://img.shields.io/github/last-commit/daemonless/uptime-kuma?style=flat-square&label=Last+Commit&color=blue)](https://github.com/daemonless/uptime-kuma/commits)
 
-A fancy self-hosted monitoring tool on FreeBSD.
+Self-hosted uptime monitoring tool with a beautiful dashboard, status pages, and multi-channel notifications.
 
 | | |
 |---|---|
@@ -54,6 +54,60 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
         annotations:
           org.freebsd.jail.allow.raw_sockets: "true"
         restart: unless-stopped
+    ```
+
+
+=== ":appjail-appjail: AppJail Director"
+
+    **.env**:
+
+    ```
+    DIRECTOR_PROJECT=uptime-kuma
+    PUID=@PUID@
+    PGID=@PGID@
+    TZ=@TZ@
+    UPTIME_KUMA_IS_CONTAINER=1
+    UPTIME_KUMA_ALLOW_ALL_CHROME_EXEC=1
+    PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+    DATA_DIR=/config
+    ```
+
+    **appjail-director.yml**:
+
+    ```yaml
+    options:
+      - virtualnet: ':<random> default'
+      - nat:
+    services:
+      uptime-kuma:
+        name: uptime_kuma
+        options:
+          - container: 'boot args:--pull'
+        oci:
+          user: root
+          environment:
+            - PUID: !ENV '${PUID}'
+            - PGID: !ENV '${PGID}'
+            - TZ: !ENV '${TZ}'
+            - UPTIME_KUMA_IS_CONTAINER: !ENV '${UPTIME_KUMA_IS_CONTAINER}'
+            - UPTIME_KUMA_ALLOW_ALL_CHROME_EXEC: !ENV '${UPTIME_KUMA_ALLOW_ALL_CHROME_EXEC}'
+            - PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: !ENV '${PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD}'
+            - DATA_DIR: !ENV '${DATA_DIR}'
+        volumes:
+          - UPTIME_KUMA_CONFIG_PATH: /config
+    volumes:
+      UPTIME_KUMA_CONFIG_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@UPTIME_KUMA_CONFIG_PATH@'
+    ```
+
+    **Makejail**:
+
+    ```
+    ARG tag=latest
+
+    OPTION overwrite=force
+    OPTION from=@REGISTRY@/uptime-kuma:${tag}
+    SET allow.raw_sockets=1
     ```
 
 

@@ -8,7 +8,7 @@ Source: dbuild templates
 [![Build Status](https://img.shields.io/github/actions/workflow/status/daemonless/tautulli/build.yaml?style=flat-square&label=Build&color=green)](https://github.com/daemonless/tautulli/actions)
 [![Last Commit](https://img.shields.io/github/last-commit/daemonless/tautulli?style=flat-square&label=Last+Commit&color=blue)](https://github.com/daemonless/tautulli/commits)
 
-Tautulli Plex monitoring on FreeBSD.
+Monitoring and tracking tool for Plex Media Server — tracks what is being watched, who is watching, and when.
 
 | | |
 |---|---|
@@ -51,6 +51,53 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
         ports:
           - @TAUTULLI_PORT@:8181
         restart: unless-stopped
+    ```
+
+
+=== ":appjail-appjail: AppJail Director"
+
+    **.env**:
+
+    ```
+    DIRECTOR_PROJECT=tautulli
+    PUID=@PUID@
+    PGID=@PGID@
+    TZ=@TZ@
+    TAUTULLI_DOCKER=True
+    ```
+
+    **appjail-director.yml**:
+
+    ```yaml
+    options:
+      - virtualnet: ':<random> default'
+      - nat:
+    services:
+      tautulli:
+        name: tautulli
+        options:
+          - container: 'boot args:--pull'
+        oci:
+          user: root
+          environment:
+            - PUID: !ENV '${PUID}'
+            - PGID: !ENV '${PGID}'
+            - TZ: !ENV '${TZ}'
+            - TAUTULLI_DOCKER: !ENV '${TAUTULLI_DOCKER}'
+        volumes:
+          - TAUTULLI_CONFIG_PATH: /config
+    volumes:
+      TAUTULLI_CONFIG_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@TAUTULLI_CONFIG_PATH@'
+    ```
+
+    **Makejail**:
+
+    ```
+    ARG tag=latest
+
+    OPTION overwrite=force
+    OPTION from=@REGISTRY@/tautulli:${tag}
     ```
 
 

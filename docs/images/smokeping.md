@@ -8,11 +8,11 @@ Source: dbuild templates
 [![Build Status](https://img.shields.io/github/actions/workflow/status/daemonless/smokeping/build.yaml?style=flat-square&label=Build&color=green)](https://github.com/daemonless/smokeping/actions)
 [![Last Commit](https://img.shields.io/github/last-commit/daemonless/smokeping?style=flat-square&label=Last+Commit&color=blue)](https://github.com/daemonless/smokeping/commits)
 
-SmokePing network latency monitor on FreeBSD.
+Network latency monitor with historical graphing — tracks round-trip times and packet loss to your hosts over time.
 
 | | |
 |---|---|
-| **Port** | 8081 |
+| **Port** | 80 |
 | **Registry** | `ghcr.io/daemonless/smokeping` |
 | **Source** | [https://github.com/oetiker/smokeping](https://github.com/oetiker/smokeping) |
 | **Website** | [https://oss.oetiker.ch/smokeping/](https://oss.oetiker.ch/smokeping/) |
@@ -47,8 +47,56 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
           - "@CONTAINER_CONFIG_ROOT@/@SMOKEPING_CONFIG_PATH@:/config"
           - "@CONTAINER_CONFIG_ROOT@/@SMOKEPING_DATA_PATH@:/data"
         ports:
-          - @SMOKEPING_PORT@:8081
+          - @SMOKEPING_PORT@:80
         restart: unless-stopped
+    ```
+
+
+=== ":appjail-appjail: AppJail Director"
+
+    **.env**:
+
+    ```
+    DIRECTOR_PROJECT=smokeping
+    PUID=@PUID@
+    PGID=@PGID@
+    TZ=@TZ@
+    ```
+
+    **appjail-director.yml**:
+
+    ```yaml
+    options:
+      - virtualnet: ':<random> default'
+      - nat:
+    services:
+      smokeping:
+        name: smokeping
+        options:
+          - container: 'boot args:--pull'
+        oci:
+          user: root
+          environment:
+            - PUID: !ENV '${PUID}'
+            - PGID: !ENV '${PGID}'
+            - TZ: !ENV '${TZ}'
+        volumes:
+          - SMOKEPING_CONFIG_PATH: /config
+          - SMOKEPING_DATA_PATH: /data
+    volumes:
+      SMOKEPING_CONFIG_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@SMOKEPING_CONFIG_PATH@'
+      SMOKEPING_DATA_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@SMOKEPING_DATA_PATH@'
+    ```
+
+    **Makejail**:
+
+    ```
+    ARG tag=latest
+
+    OPTION overwrite=force
+    OPTION from=@REGISTRY@/smokeping:${tag}
     ```
 
 
@@ -56,7 +104,7 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
 
     ```bash
     podman run -d --name smokeping \
-      -p @SMOKEPING_PORT@:8081 \
+      -p @SMOKEPING_PORT@:80 \
       -e PUID=@PUID@ \
       -e PGID=@PGID@ \
       -e TZ=@TZ@ \
@@ -79,7 +127,7 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
           PGID: "@PGID@"
           TZ: "@TZ@"
         ports:
-          - "@SMOKEPING_PORT@:8081"
+          - "@SMOKEPING_PORT@:80"
         volumes:
           - "@CONTAINER_CONFIG_ROOT@/@SMOKEPING_CONFIG_PATH@:/config"
           - "@CONTAINER_CONFIG_ROOT@/@SMOKEPING_DATA_PATH@:/data"
@@ -114,7 +162,7 @@ Access at: `http://localhost:@SMOKEPING_PORT@`
 
 | Port | Protocol | Description |
 |------|----------|-------------|
-| `8081` | TCP |  |
+| `80` | TCP | Web UI |
 
 
 !!! info "Implementation Details"

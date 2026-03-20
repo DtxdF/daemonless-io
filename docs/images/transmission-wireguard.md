@@ -61,6 +61,67 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
     ```
 
 
+=== ":appjail-appjail: AppJail Director"
+
+    **.env**:
+
+    ```
+    DIRECTOR_PROJECT=transmission-wireguard
+    WG_PRIVATE_KEY=your-private-key
+    WG_PEER_PUBLIC_KEY=vpn-server-public-key
+    WG_ENDPOINT=vpn.example.com:51820
+    WG_ADDRESS=10.5.0.2/32
+    WG_DNS=1.1.1.1
+    PUID=@PUID@
+    PGID=@PGID@
+    TZ=@TZ@
+    ```
+
+    **appjail-director.yml**:
+
+    ```yaml
+    options:
+      - virtualnet: ':<random> default'
+      - nat:
+    services:
+      transmission-wireguard:
+        name: transmission_wireguard
+        options:
+          - container: 'boot args:--pull'
+        oci:
+          user: root
+          environment:
+            - WG_PRIVATE_KEY: !ENV '${WG_PRIVATE_KEY}'
+            - WG_PEER_PUBLIC_KEY: !ENV '${WG_PEER_PUBLIC_KEY}'
+            - WG_ENDPOINT: !ENV '${WG_ENDPOINT}'
+            - WG_ADDRESS: !ENV '${WG_ADDRESS}'
+            - WG_DNS: !ENV '${WG_DNS}'
+            - PUID: !ENV '${PUID}'
+            - PGID: !ENV '${PGID}'
+            - TZ: !ENV '${TZ}'
+        volumes:
+          - TRANSMISSION_WIREGUARD_CONFIG_PATH: /config
+          - DOWNLOADS_PATH: /downloads
+          - TRANSMISSION_WIREGUARD_WATCH_PATH: /watch
+    volumes:
+      TRANSMISSION_WIREGUARD_CONFIG_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@TRANSMISSION_WIREGUARD_CONFIG_PATH@'
+      DOWNLOADS_PATH:
+        device: '@DOWNLOADS_PATH@'
+      TRANSMISSION_WIREGUARD_WATCH_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@TRANSMISSION_WIREGUARD_WATCH_PATH@'
+    ```
+
+    **Makejail**:
+
+    ```
+    ARG tag=latest
+
+    OPTION overwrite=force
+    OPTION from=@REGISTRY@/transmission-wireguard:${tag}
+    ```
+
+
 === ":material-console: Podman CLI"
 
     ```bash
