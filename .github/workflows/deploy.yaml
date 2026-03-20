@@ -97,7 +97,12 @@ jobs:
           EXIT=$?
           set -e
 
-          if [ $EXIT -eq 0 ] || [ -z "$DISCORD_WEBHOOK" ]; then
+          if [ $EXIT -eq 0 ] || [ -z "$DISCORD_WEBHOOK" ] || [ ! -s /tmp/versions.json ]; then
+            exit 0
+          fi
+
+          COUNT=$(jq '.summary.outdated_count // 0' /tmp/versions.json)
+          if [ "$COUNT" -eq 0 ]; then
             exit 0
           fi
 
@@ -109,8 +114,6 @@ jobs:
               "[\(.tag)](https://github.com/daemonless/\($base)/actions/workflows/build.yaml) `\(.deployed) → \(.available)`"
             ) | join(", "))
           ' /tmp/versions.json | awk '{printf "%s\\n", $0}')
-
-          COUNT=$(jq '.summary.outdated_count' /tmp/versions.json)
 
           curl -s -X POST "$DISCORD_WEBHOOK" \
             -H "Content-Type: application/json" \
