@@ -3,13 +3,13 @@ title: "Version Status: Live Build Health for All FreeBSD Container Images"
 description: "Real-time version tracking for every Daemonless image."
 ---
 
-*Versions last checked: 2026-03-19T06:53:03.175813Z*
+*Versions last checked: 2026-03-20T06:46:38.572019Z*
 
 
 ## Summary
 
-- :material-check-circle:{ .current } Current: 75
-- :material-close-circle:{ .outdated } Outdated: 2
+- :material-check-circle:{ .current } Current: 74
+- :material-close-circle:{ .outdated } Outdated: 3
 
 
 
@@ -34,10 +34,10 @@ description: "Real-time version tracking for every Daemonless image."
 | :material-check-circle:{ .current } | [homepage](images/homepage.md) | pkg-latest | 1.10.1 | [:simple-githubactions:](https://github.com/daemonless/homepage/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [homepage](images/homepage.md) | latest | 1.11.0 | [:simple-githubactions:](https://github.com/daemonless/homepage/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [hugo](images/hugo.md) | pkg | 0.154.5_3_1 | [:simple-githubactions:](https://github.com/daemonless/hugo/actions/workflows/build.yaml) |
-| :material-check-circle:{ .current } | [hugo](images/hugo.md) | pkg-latest | 0.157.0_1_1 | [:simple-githubactions:](https://github.com/daemonless/hugo/actions/workflows/build.yaml) |
+| :material-close-circle:{ .outdated } | [hugo](images/hugo.md) | pkg-latest | 0.157.0_1_1 → **0.158.0,1** | [:simple-githubactions:](https://github.com/daemonless/hugo/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [hugo](images/hugo.md) | latest | 0.158.0 | [:simple-githubactions:](https://github.com/daemonless/hugo/actions/workflows/build.yaml) |
-| :material-close-circle:{ .outdated } | [immich-ml](images/immich-ml.md) | latest | 2.6.1 → **2.5.6** | [:simple-githubactions:](https://github.com/daemonless/immich-ml/actions/workflows/build.yaml) |
-| :material-close-circle:{ .outdated } | [immich-server](images/immich-server.md) | latest | 2.6.1 → **2.5.6** | [:simple-githubactions:](https://github.com/daemonless/immich-server/actions/workflows/build.yaml) |
+| :material-check-circle:{ .current } | [immich-ml](images/immich-ml.md) | latest | 2.6.1 | [:simple-githubactions:](https://github.com/daemonless/immich-ml/actions/workflows/build.yaml) |
+| :material-check-circle:{ .current } | [immich-server](images/immich-server.md) | latest | 2.6.1 | [:simple-githubactions:](https://github.com/daemonless/immich-server/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [jellyfin](images/jellyfin.md) | pkg | 10.11.5 | [:simple-githubactions:](https://github.com/daemonless/jellyfin/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [jellyfin](images/jellyfin.md) | pkg-latest | 10.11.6 | [:simple-githubactions:](https://github.com/daemonless/jellyfin/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [lidarr](images/lidarr.md) | pkg | 2.13.3.4711_1 | [:simple-githubactions:](https://github.com/daemonless/lidarr/actions/workflows/build.yaml) |
@@ -75,7 +75,7 @@ description: "Real-time version tracking for every Daemonless image."
 | :material-check-circle:{ .current } | [smokeping](images/smokeping.md) | latest | 2.9.0_1 | [:simple-githubactions:](https://github.com/daemonless/smokeping/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [sonarr](images/sonarr.md) | pkg | 4.0.16.2944 | [:simple-githubactions:](https://github.com/daemonless/sonarr/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [sonarr](images/sonarr.md) | pkg-latest | 4.0.16.2944_1 | [:simple-githubactions:](https://github.com/daemonless/sonarr/actions/workflows/build.yaml) |
-| :material-check-circle:{ .current } | [sonarr](images/sonarr.md) | latest | 4.0.16.2944 | [:simple-githubactions:](https://github.com/daemonless/sonarr/actions/workflows/build.yaml) |
+| :material-close-circle:{ .outdated } | [sonarr](images/sonarr.md) | latest | 4.0.16.2944 → **4.0.17.2952** | [:simple-githubactions:](https://github.com/daemonless/sonarr/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [tailscale](images/tailscale.md) | pkg | 1.94.1_2 | [:simple-githubactions:](https://github.com/daemonless/tailscale/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [tailscale](images/tailscale.md) | pkg-latest | 1.94.1_2 | [:simple-githubactions:](https://github.com/daemonless/tailscale/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [tautulli](images/tautulli.md) | pkg | 2.16.0_1 | [:simple-githubactions:](https://github.com/daemonless/tautulli/actions/workflows/build.yaml) |
@@ -83,7 +83,7 @@ description: "Real-time version tracking for every Daemonless image."
 | :material-check-circle:{ .current } | [tautulli](images/tautulli.md) | latest | 2.16.1 | [:simple-githubactions:](https://github.com/daemonless/tautulli/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [traefik](images/traefik.md) | pkg | 3.6.10 | [:simple-githubactions:](https://github.com/daemonless/traefik/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [traefik](images/traefik.md) | pkg-latest | 3.6.10 | [:simple-githubactions:](https://github.com/daemonless/traefik/actions/workflows/build.yaml) |
-| :material-check-circle:{ .current } | [traefik](images/traefik.md) | latest | 3.6.10 | [:simple-githubactions:](https://github.com/daemonless/traefik/actions/workflows/build.yaml) |
+| :material-close-circle:{ .outdated } | [traefik](images/traefik.md) | latest | 3.6.10 → **3.6.11** | [:simple-githubactions:](https://github.com/daemonless/traefik/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [transmission](images/transmission.md) | pkg | 4.0.6_7 | [:simple-githubactions:](https://github.com/daemonless/transmission/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [transmission](images/transmission.md) | pkg-latest | 4.1.1 | [:simple-githubactions:](https://github.com/daemonless/transmission/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [transmission-wireguard](images/transmission-wireguard.md) | pkg | 4.0.6_7 | [:simple-githubactions:](https://github.com/daemonless/transmission-wireguard/actions/workflows/build.yaml) |

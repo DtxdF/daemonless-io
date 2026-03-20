@@ -8,7 +8,7 @@ Source: dbuild templates
 [![Build Status](https://img.shields.io/github/actions/workflow/status/daemonless/immich-ml/build.yaml?style=flat-square&label=Build&color=green)](https://github.com/daemonless/immich-ml/actions)
 [![Last Commit](https://img.shields.io/github/last-commit/daemonless/immich-ml?style=flat-square&label=Last+Commit&color=blue)](https://github.com/daemonless/immich-ml/commits)
 
-Immich Machine Learning service (Python/ONNX) on FreeBSD.
+Machine learning service for Immich — handles facial recognition, image classification, and semantic search using ONNX models.
 
 | | |
 |---|---|
@@ -52,6 +52,60 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
         ports:
           - @IMMICH_ML_PORT@:3003
         restart: unless-stopped
+    ```
+
+
+=== ":appjail-appjail: AppJail Director"
+
+    **.env**:
+
+    ```
+    DIRECTOR_PROJECT=immich-ml
+    MACHINE_LEARNING_HOST=0.0.0.0
+    MACHINE_LEARNING_PORT=3003
+    MACHINE_LEARNING_CACHE_FOLDER=/cache
+    PUID=@PUID@
+    PGID=@PGID@
+    TZ=@TZ@
+    ```
+
+    **appjail-director.yml**:
+
+    ```yaml
+    options:
+      - virtualnet: ':<random> default'
+      - nat:
+    services:
+      immich-ml:
+        name: immich_ml
+        options:
+          - container: 'boot args:--pull'
+        oci:
+          user: root
+          environment:
+            - MACHINE_LEARNING_HOST: !ENV '${MACHINE_LEARNING_HOST}'
+            - MACHINE_LEARNING_PORT: !ENV '${MACHINE_LEARNING_PORT}'
+            - MACHINE_LEARNING_CACHE_FOLDER: !ENV '${MACHINE_LEARNING_CACHE_FOLDER}'
+            - PUID: !ENV '${PUID}'
+            - PGID: !ENV '${PGID}'
+            - TZ: !ENV '${TZ}'
+        volumes:
+          - IMMICH_ML_CACHE_PATH: /cache
+          - IMMICH_ML_CONFIG_PATH: /config
+    volumes:
+      IMMICH_ML_CACHE_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@IMMICH_ML_CACHE_PATH@'
+      IMMICH_ML_CONFIG_PATH:
+        device: '@CONTAINER_CONFIG_ROOT@/@IMMICH_ML_CONFIG_PATH@'
+    ```
+
+    **Makejail**:
+
+    ```
+    ARG tag=latest
+
+    OPTION overwrite=force
+    OPTION from=@REGISTRY@/immich-ml:${tag}
     ```
 
 
