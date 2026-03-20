@@ -84,12 +84,14 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Notify Discord on outdated images
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_VERSION_WEBHOOK }}
           GH_TOKEN: ${{ github.token }}
         run: |
-          cd daemonless-io
           set +e
           python3 scripts/compare-versions.py > /tmp/versions.json 2>/dev/null
           EXIT=$?
