@@ -93,6 +93,7 @@ nav:
     - Base:
       - Arr Base: images/arr-base.md
       - FreeBSD Base: images/base.md
+      - FreeBSD Base Core: images/base-core.md
       - Nginx Base: images/nginx-base.md
     - Databases:
       - Immich PostgreSQL: images/immich-postgres.md
