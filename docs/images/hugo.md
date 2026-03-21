@@ -13,7 +13,7 @@ Fast and flexible static site generator — builds your entire site at creation 
 | | |
 |---|---|
 | **Port** | 1313 |
-| **Registry** | `ghcr.io/daemonless/hugo` |
+| **Registry** | `ghcr.io/dtxdf/hugo` |
 | **Source** | [https://github.com/gohugoio/hugo](https://github.com/gohugoio/hugo) |
 | **Website** | [https://gohugo.io/](https://gohugo.io/) |
 
@@ -173,6 +173,3 @@ Access at: `http://localhost:@HUGO_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

@@ -13,7 +13,7 @@ Music collection manager for Usenet and BitTorrent users — monitors RSS feeds,
 | | |
 |---|---|
 | **Port** | 8686 |
-| **Registry** | `ghcr.io/daemonless/lidarr` |
+| **Registry** | `ghcr.io/dtxdf/lidarr` |
 | **Source** | [https://github.com/Lidarr/Lidarr](https://github.com/Lidarr/Lidarr) |
 | **Website** | [https://lidarr.audio/](https://lidarr.audio/) |
 
@@ -190,6 +190,3 @@ Access at: `http://localhost:@LIDARR_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

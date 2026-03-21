@@ -13,7 +13,7 @@ Fair-code workflow automation platform with native AI capabilities — combine v
 | | |
 |---|---|
 | **Port** | 5678 |
-| **Registry** | `ghcr.io/daemonless/n8n` |
+| **Registry** | `ghcr.io/dtxdf/n8n` |
 | **Source** | [https://github.com/n8n-io/n8n](https://github.com/n8n-io/n8n) |
 | **Website** | [https://n8n.io/](https://n8n.io/) |
 
@@ -171,6 +171,3 @@ Access at: `http://localhost:@N8N_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

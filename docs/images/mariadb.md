@@ -13,7 +13,7 @@ Drop-in replacement for MySQL built by the original authors — extends core MyS
 | | |
 |---|---|
 | **Port** | 3306 |
-| **Registry** | `ghcr.io/daemonless/mariadb` |
+| **Registry** | `ghcr.io/dtxdf/mariadb` |
 | **Source** | [https://github.com/MariaDB/server](https://github.com/MariaDB/server) |
 | **Website** | [https://mariadb.org/](https://mariadb.org/) |
 
@@ -192,6 +192,3 @@ Access at: `http://localhost:@MARIADB_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

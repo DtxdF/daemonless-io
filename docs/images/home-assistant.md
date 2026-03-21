@@ -12,7 +12,7 @@ Home Assistant on FreeBSD.
 
 | | |
 |---|---|
-| **Registry** | `ghcr.io/daemonless/home-assistant` |
+| **Registry** | `ghcr.io/dtxdf/home-assistant` |
 | **Source** | [https://github.com/daemonless/home-assistant](https://github.com/daemonless/home-assistant) |
 | **Website** | [https://www.home-assistant.io/](https://www.home-assistant.io/) |
 
@@ -158,6 +158,3 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

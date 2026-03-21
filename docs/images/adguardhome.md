@@ -13,7 +13,7 @@ Network-wide ad and tracker blocking DNS server. Covers all devices on your netw
 | | |
 |---|---|
 | **Port** | 3000 |
-| **Registry** | `ghcr.io/daemonless/adguardhome` |
+| **Registry** | `ghcr.io/dtxdf/adguardhome` |
 | **Source** | [https://github.com/AdguardTeam/AdGuardHome](https://github.com/AdguardTeam/AdGuardHome) |
 | **Website** | [https://adguard.com/adguard-home.html](https://adguard.com/adguard-home.html) |
 
@@ -230,6 +230,3 @@ Access at: `http://localhost:@ADGUARDHOME_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

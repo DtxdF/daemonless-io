@@ -13,7 +13,7 @@ Free and easy binary newsreader that automates the downloading and processing of
 | | |
 |---|---|
 | **Port** | 8080 |
-| **Registry** | `ghcr.io/daemonless/sabnzbd` |
+| **Registry** | `ghcr.io/dtxdf/sabnzbd` |
 | **Source** | [https://github.com/sabnzbd/sabnzbd](https://github.com/sabnzbd/sabnzbd) |
 | **Website** | [https://sabnzbd.org/](https://sabnzbd.org/) |
 
@@ -174,6 +174,3 @@ Access at: `http://localhost:@SABNZBD_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

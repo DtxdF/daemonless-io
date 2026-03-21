@@ -13,7 +13,7 @@ Audiobook request and management platform with AI recommendations.
 | | |
 |---|---|
 | **Port** | 3030 |
-| **Registry** | `ghcr.io/daemonless/readmeabook` |
+| **Registry** | `ghcr.io/dtxdf/readmeabook` |
 | **Source** | [https://github.com/kikootwo/readmeabook](https://github.com/kikootwo/readmeabook) |
 | **Website** | [https://github.com/kikootwo/readmeabook](https://github.com/kikootwo/readmeabook) |
 
@@ -227,6 +227,3 @@ allow.sysvipc
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

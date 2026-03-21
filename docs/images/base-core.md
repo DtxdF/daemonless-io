@@ -12,7 +12,7 @@ Minimal FreeBSD base image without service supervision. Foundation for CLI tools
 
 | | |
 |---|---|
-| **Registry** | `ghcr.io/daemonless/base-core` |
+| **Registry** | `ghcr.io/dtxdf/base-core` |
 | **Source** | [https://github.com/freebsd/freebsd-src](https://github.com/freebsd/freebsd-src) |
 | **Website** | [https://www.freebsd.org/](https://www.freebsd.org/) |
 
@@ -77,6 +77,3 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

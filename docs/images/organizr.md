@@ -13,7 +13,7 @@ HTPC/Homelab Services Organizer on FreeBSD.
 | | |
 |---|---|
 | **Port** | 80 |
-| **Registry** | `ghcr.io/daemonless/organizr` |
+| **Registry** | `ghcr.io/dtxdf/organizr` |
 | **Source** | [https://github.com/causefx/Organizr](https://github.com/causefx/Organizr) |
 | **Website** | [https://organizr.app/](https://organizr.app/) |
 
@@ -165,6 +165,3 @@ Access at: `http://localhost:@ORGANIZR_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

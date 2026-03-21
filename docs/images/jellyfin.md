@@ -13,7 +13,7 @@ Volunteer-built media solution that puts you in control — stream to any device
 | | |
 |---|---|
 | **Port** | 8096 |
-| **Registry** | `ghcr.io/daemonless/jellyfin` |
+| **Registry** | `ghcr.io/dtxdf/jellyfin` |
 | **Source** | [https://github.com/jellyfin/jellyfin](https://github.com/jellyfin/jellyfin) |
 | **Website** | [https://jellyfin.org/](https://jellyfin.org/) |
 
@@ -196,6 +196,3 @@ Access at: `http://localhost:@JELLYFIN_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

@@ -13,7 +13,7 @@ Transmission BitTorrent client with built-in WireGuard VPN support.
 | | |
 |---|---|
 | **Port** | 9091 |
-| **Registry** | `ghcr.io/daemonless/transmission-wireguard` |
+| **Registry** | `ghcr.io/dtxdf/transmission-wireguard` |
 | **Source** | [https://github.com/transmission/transmission](https://github.com/transmission/transmission) |
 | **Website** | [https://transmissionbt.com/](https://transmissionbt.com/) |
 
@@ -255,6 +255,3 @@ podman exec transmission-wireguard fetch -qo - https://ifconfig.me
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

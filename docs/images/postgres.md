@@ -13,7 +13,7 @@ The World's Most Advanced Open Source Relational Database on FreeBSD.
 | | |
 |---|---|
 | **Port** | 5432 |
-| **Registry** | `ghcr.io/daemonless/postgres` |
+| **Registry** | `ghcr.io/dtxdf/postgres` |
 | **Source** | [https://www.postgresql.org/](https://www.postgresql.org/) |
 | **Website** | [https://www.postgresql.org/](https://www.postgresql.org/) |
 
@@ -145,6 +145,3 @@ Access at: `http://localhost:@POSTGRES_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

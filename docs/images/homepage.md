@@ -13,7 +13,7 @@ Modern, fully static, fast, secure and highly customizable application dashboard
 | | |
 |---|---|
 | **Port** | 3000 |
-| **Registry** | `ghcr.io/daemonless/homepage` |
+| **Registry** | `ghcr.io/dtxdf/homepage` |
 | **Source** | [https://github.com/gethomepage/homepage](https://github.com/gethomepage/homepage) |
 | **Website** | [https://gethomepage.dev/](https://gethomepage.dev/) |
 
@@ -167,6 +167,3 @@ Access at: `http://localhost:@HOMEPAGE_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

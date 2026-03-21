@@ -13,7 +13,7 @@ PostgreSQL 14 with pgvector and vectorchord extensions required by Immich for ve
 | | |
 |---|---|
 | **Port** | 5432 |
-| **Registry** | `ghcr.io/daemonless/immich-postgres` |
+| **Registry** | `ghcr.io/dtxdf/immich-postgres` |
 | **Source** | [https://github.com/immich-app/immich](https://github.com/immich-app/immich) |
 | **Website** | [https://immich.app/](https://immich.app/) |
 
@@ -188,6 +188,3 @@ allow.sysvipc
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

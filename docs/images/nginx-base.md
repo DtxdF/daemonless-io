@@ -12,7 +12,7 @@ Shared base image for Nginx-based applications.
 
 | | |
 |---|---|
-| **Registry** | `ghcr.io/daemonless/nginx-base` |
+| **Registry** | `ghcr.io/dtxdf/nginx-base` |
 | **Source** | [https://github.com/daemonless/nginx-base](https://github.com/daemonless/nginx-base) |
 | **Website** | [https://nginx.org/](https://nginx.org/) |
 
@@ -77,6 +77,3 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

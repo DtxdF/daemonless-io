@@ -13,7 +13,7 @@ Lightweight BitTorrent client with a web UI for managing torrent downloads.
 | | |
 |---|---|
 | **Port** | 9091 |
-| **Registry** | `ghcr.io/daemonless/transmission` |
+| **Registry** | `ghcr.io/dtxdf/transmission` |
 | **Source** | [https://github.com/transmission/transmission](https://github.com/transmission/transmission) |
 | **Website** | [https://transmissionbt.com/](https://transmissionbt.com/) |
 
@@ -200,6 +200,3 @@ Access at: `http://localhost:@TRANSMISSION_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

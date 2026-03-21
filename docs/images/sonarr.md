@@ -13,7 +13,7 @@ Automated TV series collection manager that monitors, grabs, and manages your TV
 | | |
 |---|---|
 | **Port** | 8989 |
-| **Registry** | `ghcr.io/daemonless/sonarr` |
+| **Registry** | `ghcr.io/dtxdf/sonarr` |
 | **Source** | [https://github.com/Sonarr/Sonarr](https://github.com/Sonarr/Sonarr) |
 | **Website** | [https://sonarr.tv/](https://sonarr.tv/) |
 
@@ -190,6 +190,3 @@ Access at: `http://localhost:@SONARR_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

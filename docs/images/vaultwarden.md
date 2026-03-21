@@ -13,7 +13,7 @@ Vaultwarden (Bitwarden compatible backend) on FreeBSD.
 | | |
 |---|---|
 | **Port** | 8080 |
-| **Registry** | `ghcr.io/daemonless/vaultwarden` |
+| **Registry** | `ghcr.io/dtxdf/vaultwarden` |
 | **Source** | [https://github.com/dani-garcia/vaultwarden](https://github.com/dani-garcia/vaultwarden) |
 | **Website** | [https://github.com/dani-garcia/vaultwarden](https://github.com/dani-garcia/vaultwarden) |
 
@@ -125,6 +125,3 @@ Access at: `http://localhost:@VAULTWARDEN_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

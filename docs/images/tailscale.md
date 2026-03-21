@@ -12,7 +12,7 @@ Zero-config mesh VPN built on WireGuard — securely connect your devices withou
 
 | | |
 |---|---|
-| **Registry** | `ghcr.io/daemonless/tailscale` |
+| **Registry** | `ghcr.io/dtxdf/tailscale` |
 | **Source** | [https://github.com/tailscale/tailscale](https://github.com/tailscale/tailscale) |
 | **Website** | [https://tailscale.com/](https://tailscale.com/) |
 
@@ -146,6 +146,3 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

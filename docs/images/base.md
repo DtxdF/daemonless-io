@@ -12,7 +12,7 @@ FreeBSD base image with s6 supervision
 
 | | |
 |---|---|
-| **Registry** | `ghcr.io/daemonless/base` |
+| **Registry** | `ghcr.io/dtxdf/base` |
 | **Source** | [https://github.com/freebsd/freebsd-src](https://github.com/freebsd/freebsd-src) |
 | **Website** | [https://www.freebsd.org/](https://www.freebsd.org/) |
 
@@ -21,7 +21,7 @@ FreeBSD base image with s6 supervision
 | Tag | Description | Best For |
 | :--- | :--- | :--- |
 | `15` / `15-quarterly` / `latest` | **FreeBSD Port**. Built from FreeBSD packages. | Production stability. |
-| `15-latest` | **FreeBSD Port**. Built from FreeBSD packages. | Production stability. |
+| `15-latest` | **FreeBSD Latest**. Rolling package updates. | Newest FreeBSD packages. |
 
 !!! failure "Root Privileges Required"
     **Podman on FreeBSD currently requires root.** All commands must be run as root (or via `doas`/`sudo`).
@@ -77,6 +77,3 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

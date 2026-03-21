@@ -13,7 +13,7 @@ Self-hosted HTML5 Network Speed Test on FreeBSD.
 | | |
 |---|---|
 | **Port** | 3000 |
-| **Registry** | `ghcr.io/daemonless/openspeedtest` |
+| **Registry** | `ghcr.io/dtxdf/openspeedtest` |
 | **Source** | [https://github.com/openspeedtest/Speed-Test](https://github.com/openspeedtest/Speed-Test) |
 | **Website** | [https://openspeedtest.com/](https://openspeedtest.com/) |
 
@@ -149,6 +149,3 @@ Access at: `http://localhost:@OPENSPEEDTEST_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

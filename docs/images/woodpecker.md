@@ -13,7 +13,7 @@ Lightweight CI/CD pipeline server with a built-in agent — integrates with Gite
 | | |
 |---|---|
 | **Port** | 8000 |
-| **Registry** | `ghcr.io/daemonless/woodpecker` |
+| **Registry** | `ghcr.io/dtxdf/woodpecker` |
 | **Source** | [https://github.com/woodpecker-ci/woodpecker](https://github.com/woodpecker-ci/woodpecker) |
 | **Website** | [https://woodpecker-ci.org/](https://woodpecker-ci.org/) |
 
@@ -193,6 +193,3 @@ Access at: `http://localhost:@WOODPECKER_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

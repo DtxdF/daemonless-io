@@ -13,7 +13,7 @@ Self-hosted photo and video backup and management server with web UI, mobile syn
 | | |
 |---|---|
 | **Port** | 2283 |
-| **Registry** | `ghcr.io/daemonless/immich-server` |
+| **Registry** | `ghcr.io/dtxdf/immich-server` |
 | **Source** | [https://github.com/immich-app/immich](https://github.com/immich-app/immich) |
 | **Website** | [https://immich.app/](https://immich.app/) |
 
@@ -204,6 +204,3 @@ This image is part of the [Immich Stack](https://daemonless.io/images/immich).
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

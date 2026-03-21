@@ -13,7 +13,7 @@ Bazarr is a companion application to Sonarr and Radarr. It manages and downloads
 | | |
 |---|---|
 | **Port** | 6767 |
-| **Registry** | `ghcr.io/daemonless/bazarr` |
+| **Registry** | `ghcr.io/dtxdf/bazarr` |
 | **Source** | [https://github.com/morpheus65535/bazarr](https://github.com/morpheus65535/bazarr) |
 | **Website** | [https://www.bazarr.media/](https://www.bazarr.media/) |
 
@@ -181,6 +181,3 @@ Access at: `http://localhost:@BAZARR_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

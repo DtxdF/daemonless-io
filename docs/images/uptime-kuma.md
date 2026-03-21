@@ -13,7 +13,7 @@ Self-hosted uptime monitoring tool with a beautiful dashboard, status pages, and
 | | |
 |---|---|
 | **Port** | 3001 |
-| **Registry** | `ghcr.io/daemonless/uptime-kuma` |
+| **Registry** | `ghcr.io/dtxdf/uptime-kuma` |
 | **Source** | [https://github.com/louislam/uptime-kuma](https://github.com/louislam/uptime-kuma) |
 | **Website** | [https://uptime.kuma.pet/](https://uptime.kuma.pet/) |
 
@@ -195,6 +195,3 @@ Access at: `http://localhost:@UPTIME_KUMA_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

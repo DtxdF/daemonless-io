@@ -13,7 +13,7 @@ A lightweight, high-performance Rust email archiver with WebUI.
 | | |
 |---|---|
 | **Port** | 15630 |
-| **Registry** | `ghcr.io/daemonless/bichon` |
+| **Registry** | `ghcr.io/dtxdf/bichon` |
 | **Source** | [https://github.com/rustmailer/bichon](https://github.com/rustmailer/bichon) |
 | **Website** | [https://github.com/rustmailer/bichon](https://github.com/rustmailer/bichon) |
 
@@ -174,6 +174,3 @@ Access at: `http://localhost:@BICHON_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

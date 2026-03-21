@@ -13,7 +13,7 @@ Network latency monitor with historical graphing — tracks round-trip times and
 | | |
 |---|---|
 | **Port** | 80 |
-| **Registry** | `ghcr.io/daemonless/smokeping` |
+| **Registry** | `ghcr.io/dtxdf/smokeping` |
 | **Source** | [https://github.com/oetiker/smokeping](https://github.com/oetiker/smokeping) |
 | **Website** | [https://oss.oetiker.ch/smokeping/](https://oss.oetiker.ch/smokeping/) |
 
@@ -172,6 +172,3 @@ Access at: `http://localhost:@SMOKEPING_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

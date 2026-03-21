@@ -13,7 +13,7 @@ Sync AdGuardHome configuration to replica instances.
 | | |
 |---|---|
 | **Port** | 8080 |
-| **Registry** | `ghcr.io/daemonless/adguardhome-sync` |
+| **Registry** | `ghcr.io/dtxdf/adguardhome-sync` |
 | **Source** | [https://github.com/bakito/adguardhome-sync](https://github.com/bakito/adguardhome-sync) |
 | **Website** | [https://github.com/bakito/adguardhome-sync](https://github.com/bakito/adguardhome-sync) |
 
@@ -120,6 +120,3 @@ Access at: `http://localhost:@ADGUARDHOME_SYNC_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

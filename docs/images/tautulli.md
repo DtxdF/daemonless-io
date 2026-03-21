@@ -13,7 +13,7 @@ Monitoring and tracking tool for Plex Media Server — tracks what is being watc
 | | |
 |---|---|
 | **Port** | 8181 |
-| **Registry** | `ghcr.io/daemonless/tautulli` |
+| **Registry** | `ghcr.io/dtxdf/tautulli` |
 | **Source** | [https://github.com/Tautulli/Tautulli](https://github.com/Tautulli/Tautulli) |
 | **Website** | [https://tautulli.com/](https://tautulli.com/) |
 
@@ -173,6 +173,3 @@ Access at: `http://localhost:@TAUTULLI_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

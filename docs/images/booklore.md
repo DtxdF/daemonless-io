@@ -12,7 +12,7 @@ Self-hosted digital library with smart shelves, metadata, OPDS support, and buil
 
 | | |
 |---|---|
-| **Registry** | `ghcr.io/daemonless/booklore` |
+| **Registry** | `ghcr.io/dtxdf/booklore` |
 | **Source** | [https://github.com/booklore-app/booklore](https://github.com/booklore-app/booklore) |
 | **Website** | [https://booklore.org/](https://booklore.org/) |
 
@@ -157,6 +157,3 @@ The MariaDB data format is compatible between Linux and FreeBSD.
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

@@ -13,7 +13,7 @@ Tunneling daemon that proxies any local webserver through the Cloudflare network
 | | |
 |---|---|
 | **Port** | 2000 |
-| **Registry** | `ghcr.io/daemonless/cloudflared` |
+| **Registry** | `ghcr.io/dtxdf/cloudflared` |
 | **Source** | [https://github.com/cloudflare/cloudflared](https://github.com/cloudflare/cloudflared) |
 | **Website** | [https://developers.cloudflare.com/cloudflare-one/connections/connect-apps](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps) |
 
@@ -144,6 +144,3 @@ Access at: `http://localhost:@CLOUDFLARED_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

@@ -13,7 +13,7 @@ Ubiquiti UniFi Network Application for managing UniFi access points, switches, a
 | | |
 |---|---|
 | **Port** | 8443 |
-| **Registry** | `ghcr.io/daemonless/unifi` |
+| **Registry** | `ghcr.io/dtxdf/unifi` |
 | **Source** | [https://ui.com/](https://ui.com/) |
 | **Website** | [https://ui.com/](https://ui.com/) |
 
@@ -200,6 +200,3 @@ Access at: `http://localhost:@UNIFI_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

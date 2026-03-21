@@ -13,7 +13,7 @@ Overseerr media request management on FreeBSD. **Deprecated** — Overseerr is n
 | | |
 |---|---|
 | **Port** | 5055 |
-| **Registry** | `ghcr.io/daemonless/overseerr` |
+| **Registry** | `ghcr.io/dtxdf/overseerr` |
 | **Source** | [https://github.com/sct/overseerr](https://github.com/sct/overseerr) |
 | **Website** | [https://overseerr.dev/](https://overseerr.dev/) |
 
@@ -120,6 +120,3 @@ Access at: `http://localhost:@OVERSEERR_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

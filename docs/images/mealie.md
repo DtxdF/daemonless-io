@@ -13,7 +13,7 @@ Intuitive self-hosted recipe management app designed to be the best recipe manag
 | | |
 |---|---|
 | **Port** | 9000 |
-| **Registry** | `ghcr.io/daemonless/mealie` |
+| **Registry** | `ghcr.io/dtxdf/mealie` |
 | **Source** | [https://github.com/mealie-recipes/mealie](https://github.com/mealie-recipes/mealie) |
 | **Website** | [https://mealie.io/](https://mealie.io/) |
 
@@ -232,6 +232,3 @@ See [daemonless/postgres README](https://github.com/daemonless/postgres#migratin
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

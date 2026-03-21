@@ -13,7 +13,7 @@ Modern HTTP reverse proxy and load balancer on FreeBSD.
 | | |
 |---|---|
 | **Port** | 80 |
-| **Registry** | `ghcr.io/daemonless/traefik` |
+| **Registry** | `ghcr.io/dtxdf/traefik` |
 | **Source** | [https://github.com/traefik/traefik](https://github.com/traefik/traefik) |
 | **Website** | [https://traefik.io/](https://traefik.io/) |
 
@@ -175,6 +175,3 @@ Access at: `http://localhost:@TRAEFIK_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

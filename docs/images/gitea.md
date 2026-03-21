@@ -13,7 +13,7 @@ Lightweight self-hosted Git service — a community managed fork of Gogs written
 | | |
 |---|---|
 | **Port** | 3000 |
-| **Registry** | `ghcr.io/daemonless/gitea` |
+| **Registry** | `ghcr.io/dtxdf/gitea` |
 | **Source** | [https://github.com/go-gitea/gitea](https://github.com/go-gitea/gitea) |
 | **Website** | [https://about.gitea.com/](https://about.gitea.com/) |
 
@@ -170,6 +170,3 @@ Access at: `http://localhost:@GITEA_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

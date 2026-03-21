@@ -13,7 +13,7 @@ Unified media request management (Plex, Jellyfin, Emby) on FreeBSD.
 | | |
 |---|---|
 | **Port** | 5055 |
-| **Registry** | `ghcr.io/daemonless/seerr` |
+| **Registry** | `ghcr.io/dtxdf/seerr` |
 | **Source** | [https://github.com/seerr-team/seerr](https://github.com/seerr-team/seerr) |
 | **Website** | [https://seerr.io/](https://seerr.io/) |
 
@@ -165,6 +165,3 @@ Access at: `http://localhost:@SEERR_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.

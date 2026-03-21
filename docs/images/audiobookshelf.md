@@ -13,7 +13,7 @@ Self-hosted audiobook and podcast server.
 | | |
 |---|---|
 | **Port** | 13378 |
-| **Registry** | `ghcr.io/daemonless/audiobookshelf` |
+| **Registry** | `ghcr.io/dtxdf/audiobookshelf` |
 | **Source** | [https://github.com/advplyr/audiobookshelf](https://github.com/advplyr/audiobookshelf) |
 | **Website** | [https://www.audiobookshelf.org/](https://www.audiobookshelf.org/) |
 
@@ -179,6 +179,3 @@ Access at: `http://localhost:@AUDIOBOOKSHELF_PORT@`
     - **Base:** Built on `@REGISTRY@/base` (FreeBSD 15.0).
 
 
----
-
-Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.
