@@ -77,7 +77,12 @@ def generate():
     config_template = env.get_template("config.md.j2")
     config_content = config_template.render(
         environment=DOCS_CONTENT["ENVIRONMENT"],
-        files=DOCS_CONTENT["FILES"]
+        files=DOCS_CONTENT["FILES"],
+        metadata_fields=DOCS_CONTENT["METADATA_FIELDS"],
+        build_fields=DOCS_CONTENT["BUILD_FIELDS"],
+        variant_fields=DOCS_CONTENT["VARIANT_FIELDS"],
+        cit_fields=DOCS_CONTENT["CIT_FIELDS"],
+        deprecation_fields=DOCS_CONTENT["DEPRECATION_FIELDS"],
     )
     (DBUILD_GUIDES_DIR / "config.md").write_text(config_content)
     print(f"Generated {DBUILD_GUIDES_DIR / 'config.md'}")

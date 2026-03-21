@@ -20,16 +20,77 @@
 
 ## Metadata (`x-daemonless`)
 
-The `x-daemonless` section in `compose.yaml` (or `config.yaml`) defines discovery metadata:
+The `x-daemonless` section in `compose.yaml` defines discovery metadata used for documentation generation and the images index.
 
 | Field | Default | Description |
 |-------|---------|-------------|
-| `title` | (dir name) | Human-readable application title |
-| `icon` | `:material-docker:` | Material or SimpleIcon identifier |
-| `category` | `Apps` | Application category |
-| `description` | `""` | Short description of the application |
-| `upstream_url`| `""` | URL to the upstream source repository |
-| `web_url` | `""` | URL to the official project website |
-| `community` | `""` | Help link in `Name:URL` format |
-| `appjail` | `None` | Enable AppJail documentation (bare key or config) |
-| `user` | `bsd` | Internal container user (docs only) |
+{% for field, default, desc in metadata_fields -%}
+| `{{ field }}` | `{{ default }}` | {{ desc }} |
+{% endfor %}
+
+### `deprecated:` sub-keys
+
+Images can be marked as deprecated with a bare key (generic notice) or a structured dict (with context for users migrating away):
+
+```yaml
+x-daemonless:
+  # Generic — disables CI builds and shows a notice
+  deprecated:
+
+  # Structured — adds context and points to a replacement
+  deprecated:
+    reason: "Superseded by seerr"
+    replacement: "seerr"
+    sunset_date: "2026-06-01"
+    migration_guide: "Stop overseerr, copy /containers/overseerr to /containers/seerr."
+```
+
+| Field | Default | Description |
+|-------|---------|-------------|
+{% for field, default, desc in deprecation_fields -%}
+| `{{ field }}` | `{{ default }}` | {{ desc }} |
+{% endfor %}
+
+### `docs:` sub-keys
+
+The `docs:` field accepts three optional sub-keys used to generate README reference tables:
+
+```yaml
+docs:
+  env:
+    ENV_VAR: "Description of this variable"
+  volumes:
+    /data/path: "Description of this mount"
+  ports:
+    8080: "Description of this port"
+```
+
+
+## Build Config (`.daemonless/config.yaml`)
+
+### Top-level `build:` keys
+
+| Field | Default | Description |
+|-------|---------|-------------|
+{% for field, default, desc in build_fields -%}
+| `{{ field }}` | `{{ default }}` | {{ desc }} |
+{% endfor %}
+
+### Variant fields (`build.variants[]`)
+
+| Field | Default | Description |
+|-------|---------|-------------|
+{% for field, default, desc in variant_fields -%}
+| `{{ field }}` | `{{ default }}` | {{ desc }} |
+{% endfor %}
+
+
+## CIT Config (`cit:`)
+
+See the [CIT reference](cit.md) for full details. Quick summary:
+
+| Field | Default | Description |
+|-------|---------|-------------|
+{% for field, default, desc in cit_fields -%}
+| `{{ field }}` | `{{ default }}` | {{ desc }} |
+{% endfor %}
