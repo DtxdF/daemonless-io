@@ -28,12 +28,15 @@ description: "Real-time version tracking for every Daemonless image."
 {%- set svc_deployed = deployed[name] %}
 {%- set base_repo = base_names[name] if base_names is defined and name in base_names else name %}
 {%- set actions_url = 'https://github.com/daemonless/' ~ base_repo ~ '/actions/workflows/build.yaml' %}
+{%- set svc_tags = display_tags[name] if display_tags is defined and name in display_tags else {} %}
 {%- for tag in ['pkg', 'pkg-latest', 'latest'] %}
 {%- if (name, tag) in outdated_lookup %}
 {%- set update = outdated_lookup[(name, tag)] %}
-| :material-close-circle:{ .outdated } | [{{ name }}](images/{{ base_repo }}.md) | {{ tag }} | {{ update.deployed }} → **{{ update.available | replace('v', '', 1) }}** | [:simple-githubactions:]({{ actions_url }}) |
+{%- set tag_list = svc_tags[tag] if tag in svc_tags else [tag] %}
+| :material-close-circle:{ .outdated } | [{{ base_repo }}](images/{{ base_repo }}.md) | `{{ tag_list | join('`, `') }}` | {{ update.deployed }} → **{{ update.available | replace('v', '', 1) }}** | [:simple-githubactions:]({{ actions_url }}) |
 {%- elif tag in svc_deployed %}
-| :material-check-circle:{ .current } | [{{ name }}](images/{{ base_repo }}.md) | {{ tag }} | {{ svc_deployed[tag] }} | [:simple-githubactions:]({{ actions_url }}) |
+{%- set tag_list = svc_tags[tag] if tag in svc_tags else [tag] %}
+| :material-check-circle:{ .current } | [{{ base_repo }}](images/{{ base_repo }}.md) | `{{ tag_list | join('`, `') }}` | {{ svc_deployed[tag] }} | [:simple-githubactions:]({{ actions_url }}) |
 {%- endif %}
 {%- endfor %}
 {%- endfor %}
