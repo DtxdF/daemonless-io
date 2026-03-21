@@ -3,13 +3,13 @@ title: "Version Status: Live Build Health for All FreeBSD Container Images"
 description: "Real-time version tracking for every Daemonless image."
 ---
 
-*Versions last checked: 2026-03-20T19:30:14.625686Z*
+*Versions last checked: 2026-03-21T03:13:12.054594Z*
 
 
 ## Summary
 
-- :material-check-circle:{ .current } Current: 78
-- :material-close-circle:{ .outdated } Outdated: 0
+- :material-check-circle:{ .current } Current: 79
+- :material-close-circle:{ .outdated } Outdated: 1
 
 
 
@@ -30,7 +30,7 @@ description: "Real-time version tracking for every Daemonless image."
 | :material-check-circle:{ .current } | [cloudflared](images/cloudflared.md) | pkg-latest | 2026.2.0_1 | [:simple-githubactions:](https://github.com/daemonless/cloudflared/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [gitea](images/gitea.md) | pkg | 1.24.2_10 | [:simple-githubactions:](https://github.com/daemonless/gitea/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [gitea](images/gitea.md) | pkg-latest | 1.25.4_1 | [:simple-githubactions:](https://github.com/daemonless/gitea/actions/workflows/build.yaml) |
-| :material-check-circle:{ .current } | [home-assistant](images/home-assistant.md) | latest | 2026.3.2 | [:simple-githubactions:](https://github.com/daemonless/home-assistant/actions/workflows/build.yaml) |
+| :material-close-circle:{ .outdated } | [home-assistant](images/home-assistant.md) | latest | 2026.3.2 → **2026.3.3** | [:simple-githubactions:](https://github.com/daemonless/home-assistant/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [homepage](images/homepage.md) | pkg | 1.8.0 | [:simple-githubactions:](https://github.com/daemonless/homepage/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [homepage](images/homepage.md) | pkg-latest | 1.10.1 | [:simple-githubactions:](https://github.com/daemonless/homepage/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [homepage](images/homepage.md) | latest | 1.11.0 | [:simple-githubactions:](https://github.com/daemonless/homepage/actions/workflows/build.yaml) |
@@ -58,6 +58,8 @@ description: "Real-time version tracking for every Daemonless image."
 | :material-check-circle:{ .current } | [postgres-14](images/postgres.md) | pkg-latest | 14.22 | [:simple-githubactions:](https://github.com/daemonless/postgres/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [postgres-17](images/postgres.md) | pkg | 17.9 | [:simple-githubactions:](https://github.com/daemonless/postgres/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [postgres-17](images/postgres.md) | pkg-latest | 17.9 | [:simple-githubactions:](https://github.com/daemonless/postgres/actions/workflows/build.yaml) |
+| :material-check-circle:{ .current } | [postgres-18](images/postgres.md) | pkg | 18.3 | [:simple-githubactions:](https://github.com/daemonless/postgres/actions/workflows/build.yaml) |
+| :material-check-circle:{ .current } | [postgres-18](images/postgres.md) | pkg-latest | 18.3 | [:simple-githubactions:](https://github.com/daemonless/postgres/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [prowlarr](images/prowlarr.md) | pkg | 2.0.5.5160_1 | [:simple-githubactions:](https://github.com/daemonless/prowlarr/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [prowlarr](images/prowlarr.md) | pkg-latest | 2.3.0.5236 | [:simple-githubactions:](https://github.com/daemonless/prowlarr/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [prowlarr](images/prowlarr.md) | latest | 2.3.0.5236 | [:simple-githubactions:](https://github.com/daemonless/prowlarr/actions/workflows/build.yaml) |
