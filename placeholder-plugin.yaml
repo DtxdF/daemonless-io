@@ -509,7 +509,7 @@ placeholders:
     default: sabnzbd
     description: SABnzbd /config Path
   ADGUARDHOME_PORT:
-    default: '53'
+    default: '3000'
     description: AdGuard Home Host Port
     validators:
     - port_number

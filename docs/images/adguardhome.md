@@ -12,7 +12,7 @@ Network-wide ad and tracker blocking DNS server. Covers all devices on your netw
 
 | | |
 |---|---|
-| **Port** | 53 |
+| **Port** | 3000 |
 | **Registry** | `ghcr.io/daemonless/adguardhome` |
 | **Source** | [https://github.com/AdguardTeam/AdGuardHome](https://github.com/AdguardTeam/AdGuardHome) |
 | **Website** | [https://adguard.com/adguard-home.html](https://adguard.com/adguard-home.html) |
@@ -49,7 +49,8 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
           - "@CONTAINER_CONFIG_ROOT@/@ADGUARDHOME_OPT_ADGUARDHOME_CONF_PATH@:/opt/adguardhome/conf"
           - "@CONTAINER_CONFIG_ROOT@/@ADGUARDHOME_OPT_ADGUARDHOME_WORK_PATH@:/opt/adguardhome/work"
         ports:
-          - @ADGUARDHOME_PORT@:53
+          - @ADGUARDHOME_PORT@:3000
+          - 53:53
           - 53:53
           - 67:67
           - 68:68
@@ -59,7 +60,6 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
           - 784:784
           - 853:853
           - 853:853
-          - 3000:3000
           - 5443:5443
           - 5443:5443
           - 6060:6060
@@ -120,7 +120,8 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
 
     ```bash
     podman run -d --name adguardhome \
-      -p @ADGUARDHOME_PORT@:53 \
+      -p @ADGUARDHOME_PORT@:3000 \
+      -p 53:53 \
       -p 53:53 \
       -p 67:67 \
       -p 68:68 \
@@ -130,7 +131,6 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
       -p 784:784 \
       -p 853:853 \
       -p 853:853 \
-      -p 3000:3000 \
       -p 5443:5443 \
       -p 5443:5443 \
       -p 6060:6060 \
@@ -157,7 +157,8 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
           PGID: "@PGID@"
           TZ: "@TZ@"
         ports:
-          - "@ADGUARDHOME_PORT@:53"
+          - "@ADGUARDHOME_PORT@:3000"
+          - "53:53"
           - "53:53"
           - "67:67"
           - "68:68"
@@ -167,7 +168,6 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
           - "784:784"
           - "853:853"
           - "853:853"
-          - "3000:3000"
           - "5443:5443"
           - "5443:5443"
           - "6060:6060"
@@ -206,6 +206,7 @@ Access at: `http://localhost:@ADGUARDHOME_PORT@`
 
 | Port | Protocol | Description |
 |------|----------|-------------|
+| `3000` | TCP | Web UI (Setup/Admin) |
 | `53` | TCP | DNS (TCP/UDP) |
 | `53` | UDP | DNS (TCP/UDP) |
 | `67` | UDP |  |
@@ -216,7 +217,6 @@ Access at: `http://localhost:@ADGUARDHOME_PORT@`
 | `784` | UDP |  |
 | `853` | TCP | DNS-over-TLS (TCP/UDP) |
 | `853` | UDP | DNS-over-TLS (TCP/UDP) |
-| `3000` | TCP | Web UI (Setup/Admin) |
 | `5443` | TCP | DNS-over-HTTPS (TCP/UDP) |
 | `5443` | UDP | DNS-over-HTTPS (TCP/UDP) |
 | `6060` | TCP | Admin API |

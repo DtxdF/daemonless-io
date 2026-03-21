@@ -8,8 +8,8 @@ description: "Real-time version tracking for every Daemonless image."
 
 ## Summary
 
-- :material-check-circle:{ .current } Current: 79
-- :material-close-circle:{ .outdated } Outdated: 1
+- :material-check-circle:{ .current } Current: 80
+- :material-close-circle:{ .outdated } Outdated: 0
 
 
 
@@ -30,7 +30,7 @@ description: "Real-time version tracking for every Daemonless image."
 | :material-check-circle:{ .current } | [cloudflared](images/cloudflared.md) | pkg-latest | 2026.2.0_1 | [:simple-githubactions:](https://github.com/daemonless/cloudflared/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [gitea](images/gitea.md) | pkg | 1.24.2_10 | [:simple-githubactions:](https://github.com/daemonless/gitea/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [gitea](images/gitea.md) | pkg-latest | 1.25.4_1 | [:simple-githubactions:](https://github.com/daemonless/gitea/actions/workflows/build.yaml) |
-| :material-close-circle:{ .outdated } | [home-assistant](images/home-assistant.md) | latest | 2026.3.2 → **2026.3.3** | [:simple-githubactions:](https://github.com/daemonless/home-assistant/actions/workflows/build.yaml) |
+| :material-check-circle:{ .current } | [home-assistant](images/home-assistant.md) | latest | 2026.3.3 | [:simple-githubactions:](https://github.com/daemonless/home-assistant/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [homepage](images/homepage.md) | pkg | 1.8.0 | [:simple-githubactions:](https://github.com/daemonless/homepage/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [homepage](images/homepage.md) | pkg-latest | 1.10.1 | [:simple-githubactions:](https://github.com/daemonless/homepage/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [homepage](images/homepage.md) | latest | 1.11.0 | [:simple-githubactions:](https://github.com/daemonless/homepage/actions/workflows/build.yaml) |
