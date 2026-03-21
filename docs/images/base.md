@@ -21,7 +21,7 @@ FreeBSD base image with s6 supervision
 | Tag | Description | Best For |
 | :--- | :--- | :--- |
 | `15` / `15-quarterly` / `latest` | **FreeBSD Port**. Built from FreeBSD packages. | Production stability. |
-| `15-latest` | **FreeBSD Port**. Built from FreeBSD packages. | Production stability. |
+| `15-latest` | **FreeBSD Latest**. Rolling package updates. | Newest FreeBSD packages. |
 
 !!! failure "Root Privileges Required"
     **Podman on FreeBSD currently requires root.** All commands must be run as root (or via `doas`/`sudo`).
