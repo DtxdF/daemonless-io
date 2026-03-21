@@ -23,8 +23,10 @@ The World's Most Advanced Open Source Relational Database on FreeBSD.
 | :--- | :--- | :--- |
 | `14` / `14-pkg` | **FreeBSD Quarterly**. Uses stable, tested packages. | Production stability. |
 | `14-pkg-latest` | **FreeBSD Latest**. Rolling package updates. | Newest FreeBSD packages. |
-| `17` / `17-pkg` / `latest` / `pkg` | **FreeBSD Quarterly**. Uses stable, tested packages. | Most users. Matches Linux Docker behavior. |
-| `17-pkg-latest` / `pkg-latest` | **FreeBSD Latest**. Rolling package updates. | Newest FreeBSD packages. |
+| `17` / `17-pkg` | **FreeBSD Quarterly**. Uses stable, tested packages. | Production stability. |
+| `17-pkg-latest` | **FreeBSD Latest**. Rolling package updates. | Newest FreeBSD packages. |
+| `18` / `18-pkg` / `latest` / `pkg` | **FreeBSD Quarterly**. Uses stable, tested packages. | Most users. Matches Linux Docker behavior. |
+| `18-pkg-latest` / `pkg-latest` | **FreeBSD Latest**. Rolling package updates. | Newest FreeBSD packages. |
 
 !!! failure "Root Privileges Required"
     **Podman on FreeBSD currently requires root.** All commands must be run as root (or via `doas`/`sudo`).

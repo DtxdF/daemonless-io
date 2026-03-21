@@ -3,12 +3,12 @@ title: "Version Status: Live Build Health for All FreeBSD Container Images"
 description: "Real-time version tracking for every Daemonless image."
 ---
 
-*Versions last checked: 2026-03-20T13:52:25.088022Z*
+*Versions last checked: 2026-03-20T19:30:14.625686Z*
 
 
 ## Summary
 
-- :material-check-circle:{ .current } Current: 77
+- :material-check-circle:{ .current } Current: 78
 - :material-close-circle:{ .outdated } Outdated: 0
 
 
@@ -22,6 +22,7 @@ description: "Real-time version tracking for every Daemonless image."
 | :material-check-circle:{ .current } | [adguardhome](images/adguardhome.md) | pkg-latest | 0.107.72 | [:simple-githubactions:](https://github.com/daemonless/adguardhome/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [adguardhome](images/adguardhome.md) | latest | 0.107.73 | [:simple-githubactions:](https://github.com/daemonless/adguardhome/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [adguardhome-sync](images/adguardhome-sync.md) | latest | 0.9.0 | [:simple-githubactions:](https://github.com/daemonless/adguardhome-sync/actions/workflows/build.yaml) |
+| :material-check-circle:{ .current } | [audiobookshelf](images/audiobookshelf.md) | latest | 2.33.1 | [:simple-githubactions:](https://github.com/daemonless/audiobookshelf/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [bazarr](images/bazarr.md) | pkg | 1.5.2_3 | [:simple-githubactions:](https://github.com/daemonless/bazarr/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [bazarr](images/bazarr.md) | pkg-latest | 1.5.4 | [:simple-githubactions:](https://github.com/daemonless/bazarr/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [bazarr](images/bazarr.md) | latest | 1.5.6 | [:simple-githubactions:](https://github.com/daemonless/bazarr/actions/workflows/build.yaml) |
@@ -63,7 +64,7 @@ description: "Real-time version tracking for every Daemonless image."
 | :material-check-circle:{ .current } | [radarr](images/radarr.md) | pkg | 5.28.0.10274 | [:simple-githubactions:](https://github.com/daemonless/radarr/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [radarr](images/radarr.md) | pkg-latest | 6.0.4.10291_1 | [:simple-githubactions:](https://github.com/daemonless/radarr/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [radarr](images/radarr.md) | latest | 6.0.4.10291 | [:simple-githubactions:](https://github.com/daemonless/radarr/actions/workflows/build.yaml) |
-| :material-check-circle:{ .current } | [readmeabook](images/readmeabook.md) | latest | 1.1.6 | [:simple-githubactions:](https://github.com/daemonless/readmeabook/actions/workflows/build.yaml) |
+| :material-check-circle:{ .current } | [readmeabook](images/readmeabook.md) | latest | 1.1.7 | [:simple-githubactions:](https://github.com/daemonless/readmeabook/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [redis](images/redis.md) | pkg | 8.4.0_1 | [:simple-githubactions:](https://github.com/daemonless/redis/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [redis](images/redis.md) | pkg-latest | 8.6.1 | [:simple-githubactions:](https://github.com/daemonless/redis/actions/workflows/build.yaml) |
 | :material-check-circle:{ .current } | [sabnzbd](images/sabnzbd.md) | pkg | 4.5.5 | [:simple-githubactions:](https://github.com/daemonless/sabnzbd/actions/workflows/build.yaml) |
