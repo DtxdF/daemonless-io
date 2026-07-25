@@ -1132,6 +1132,9 @@ placeholders:
   FFMPEG_WORK_PATH:
     default: ffmpeg/work
     description: FFmpeg /work Path
+  JELLYFIN_FFMPEG_WORK_PATH:
+    default: jellyfin-ffmpeg/work
+    description: Jellyfin FFmpeg /work Path
 validators:
   port_number:
     name: Port Number
