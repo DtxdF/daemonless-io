@@ -61,6 +61,10 @@ def get_repo_config(repo_path):
         if 'registry' not in context:
             context['registry'] = cfg.registry or "ghcr.io/daemonless"
 
+        # Convert newlines to <br> so multiline descriptions display cleanly inside markdown table cells
+        if context.get('description'):
+            context['description'] = context['description'].strip().replace('\n', '<br>')
+
         return context
     except Exception as e: # pylint: disable=broad-exception-caught
         print(f"Error loading {repo_path.name}: {e}")
