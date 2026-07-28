@@ -1171,6 +1171,17 @@ placeholders:
   READMEABOOK_REDIS_PATH:
     default: readmeabook/redis
     description: ReadMeABook /var/lib/redis Path
+  CADDY_PORT:
+    default: '80'
+    description: Caddy Host Port
+    validators:
+    - port_number
+  CADDY_CONFIG_PATH:
+    default: caddy
+    description: Caddy /config Path
+  CADDY_DATA_PATH:
+    default: caddy/data
+    description: Caddy /data Path
 validators:
   port_number:
     name: Port Number
