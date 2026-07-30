@@ -1182,6 +1182,14 @@ placeholders:
   CADDY_DATA_PATH:
     default: caddy/data
     description: Caddy /data Path
+  HAPROXY_PORT:
+    default: '80'
+    description: HAProxy Host Port
+    validators:
+    - port_number
+  HAPROXY_CONFIG_PATH:
+    default: haproxy
+    description: HAProxy /config Path
 validators:
   port_number:
     name: Port Number
