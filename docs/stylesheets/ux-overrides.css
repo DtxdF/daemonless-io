@@ -151,3 +151,9 @@
 .md-typeset table td:first-child code {
   white-space: nowrap !important;
 }
+
+/* Exception: let multi-alias tag-list cells (e.g. Version Tags tables) wrap */
+.md-typeset table td:first-child:has(code ~ code) {
+  white-space: normal !important;
+  word-break: break-word;
+}
