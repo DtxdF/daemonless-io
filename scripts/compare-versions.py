@@ -22,7 +22,7 @@ def get_deployed_versions(package: str, variant: str = None) -> dict:
     try:
         # Get all version info with tags grouped
         result = subprocess.run(
-            ["gh", "api", f"/orgs/{ORG}/packages/container/{package}/versions",
+            ["gh", "api", "--paginate", f"/orgs/{ORG}/packages/container/{package}/versions",
              "--jq", '.[] | {tags: .metadata.container.tags}'],
             capture_output=True, text=True, check=True
         )
