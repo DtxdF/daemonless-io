@@ -465,6 +465,26 @@ dbuild init --github
 
 This creates a starter `compose.yaml`, `Containerfile`, `.daemonless/config.yaml`, and `.github/workflows/build.yaml` (use `--woodpecker` instead if you need to scaffold the fallback pipeline).
 
+#### Initializing from a FreeBSD Port
+
+If the app you're packaging already has a FreeBSD port, point `dbuild init` at it instead of starting from a blank template. It queries the port's Makefile (title, description, license, category, runtime deps) and pre-fills `.daemonless/config.yaml` and `compose.yaml` for you:
+
+```bash
+dbuild init --freebsd-port www/forgejo --name forgejo --title Forgejo --variants latest,pkg,pkg-latest
+```
+
+Requires a local ports tree checkout (`$PORTSDIR`, default `/usr/ports`).
+
+##### FLAVORS
+
+Some ports build multiple package variants via FreeBSD's `FLAVORS` mechanism (e.g. `editors/joe`'s `tiny`/`x11` flavors). Pass `--flavors` to scaffold one pkg-type variant tag per flavor, each pointing at that flavor's own resolved package name:
+
+```bash
+dbuild init --freebsd-port editors/joe --name joe --variants pkg,pkg-latest --flavors tiny,x11
+```
+
+This generates `pkg-tiny`, `pkg-x11`, `pkg-latest-tiny`, and `pkg-latest-x11` variant tags (each with its own `pkg_name:` in `.daemonless/config.yaml`) — flavors only apply to pkg-type (`Containerfile.pkg`) variants, since `FLAVORS` is a FreeBSD packaging concept with no equivalent for upstream-source builds. `--flavors` requires `--freebsd-port`, and `dbuild init` aborts without scaffolding anything if a requested flavor doesn't exist on that port.
+
 ### 3. Configure Metadata & Assets
 
 Edit `compose.yaml` to set your app's title, ports, and category. Then, fetch the visual assets and generate the documentation:

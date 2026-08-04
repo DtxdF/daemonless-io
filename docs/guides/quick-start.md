@@ -54,6 +54,14 @@ Both are first-class citizens in the Daemonless ecosystem. Pick whichever fits y
 !!! failure "Root Privileges Required"
     **Podman on FreeBSD currently requires root.** Rootless mode is not yet supported. All commands in this guide must be run as root (or via `sudo`/`doas`).
 
+!!! note "Security Model: Host Root ≠ Container Root"
+    If you're coming from Docker, "requires root on the host" might set off alarm bells — on Linux, that can genuinely mean weaker isolation. On FreeBSD it doesn't, because host privilege and workload privilege are two separate axes:
+
+    1. **Host privilege is an admin requirement, not a workload property.** Podman/AppJail need root on the *host* to create and manage jails, the same way `jail(8)` itself always has and the same way Docker's own daemon runs as root on Linux. Rootless jail management is an active area of upstream FreeBSD development; until it lands, jail creation needs root — that says nothing about what runs *inside* the jail.
+    2. **daemonless images drop privileges immediately.** The base image's `s6` supervisor starts as root only long enough to do required setup (fixing `/config` ownership, etc.), then `exec`s the application via `s6-setuidgid bsd` — dropping to an unprivileged user (**UID:GID 1000:1000** by default, remappable via `PUID`/`PGID`) *before* Jellyfin, Immich, Navidrome, and most other apps start. The application itself does not run as root inside the container.
+
+    On top of that, the container boundary is a real FreeBSD **jail** — the same kernel-level isolation primitive Bastille and hand-rolled `jail.conf` setups have used for two decades, not a namespace approximation of one. Needing root to manage jails on the host is unrelated to how privileged the workload is once it's running inside one — and daemonless images are unprivileged on that second axis by default.
+
 Install Podman and container networking:
 
 ```bash

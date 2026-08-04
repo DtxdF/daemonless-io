@@ -92,9 +92,16 @@ hide:
           <td>Yes (Native datasets)</td>
           <td class="highlight">Yes (Native datasets)</td>
         </tr>
+        <tr>
+          <td><strong>In-Container Privilege</strong></td>
+          <td>Varies by image</td>
+          <td>Manual (admin-configured)</td>
+          <td class="highlight">Unprivileged by default (UID:GID 1000:1000)</td>
+        </tr>
       </tbody>
     </table>
   </div>
+  <p style="text-align: center; color: var(--md-default-fg-color--light); margin-top: 1rem;">Host root is required to manage jails (same as Docker's own daemon on Linux) — that's independent of what runs inside one. See <a href="guides/quick-start/#prerequisites">the security model breakdown</a> for the full picture.</p>
 </div>
 
 <div class="architecture-section">

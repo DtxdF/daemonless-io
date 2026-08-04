@@ -1056,7 +1056,7 @@ placeholders:
     - port_number
   UNIFI_OS_SERVER_DATA_PATH:
     default: unifi-os-server/data
-    description: UniFi OS Server /data Path
+    description: UniFi OS Server /compat/linux/data Path
   CNPG_POSTGRES_PORT:
     default: '5432'
     description: PostgreSQL (CloudNativePG) Host Port
@@ -1190,6 +1190,17 @@ placeholders:
   HAPROXY_CONFIG_PATH:
     default: haproxy
     description: HAProxy /config Path
+  VICTORIAMETRICS_PORT:
+    default: '8428'
+    description: VictoriaMetrics Host Port
+    validators:
+    - port_number
+  VICTORIAMETRICS_STORAGE_PATH:
+    default: victoriametrics/storage
+    description: VictoriaMetrics /storage Path
+  VICTORIAMETRICS_CONFIG_PATH:
+    default: victoriametrics
+    description: VictoriaMetrics /config Path
 validators:
   port_number:
     name: Port Number
