@@ -61,6 +61,9 @@ def get_repo_config(repo_path):
         if 'registry' not in context:
             context['registry'] = cfg.registry or "ghcr.io/daemonless"
 
+        # cfg.type lives on Config, not Metadata, so _enrich_metadata doesn't carry it
+        context['type'] = cfg.type
+
         # Convert newlines to <br> so multiline descriptions display cleanly inside markdown table cells
         if context.get('description'):
             context['description'] = context['description'].strip().replace('\n', '<br>')
@@ -243,6 +246,25 @@ def generate_index_page(configs):
     DOCS_DIR.mkdir(parents=True, exist_ok=True)
     (DOCS_DIR / "index.md").write_text("\n".join(lines), encoding='utf-8')
     print("Generated docs/images/index.md")
+
+def generate_appliances_page(configs):
+    """Generate docs/guides/appliances.md, filtered to type: appliance images."""
+    try:
+        tmpl = env.get_template("appliances.md.j2")
+    except jinja2.TemplateNotFound:
+        print("Warning: appliances.md.j2 not found, skipping Appliances page")
+        return
+
+    appliances = sorted(
+        (c for c in configs if c.get("type") == "appliance"),
+        key=lambda c: c["title"],
+    )
+    content = tmpl.render(appliances=appliances)
+
+    out_path = REPO_ROOT / "docs" / "guides" / "appliances.md"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(content, encoding='utf-8')
+    print(f"Generated {out_path} ({len(appliances)} appliance(s))")
 
 def update_mkdocs_yaml(configs):
     """Update mkdocs.yaml navigation with all images."""
@@ -563,6 +585,7 @@ def main():
     generate_homepage(configs)
     generate_status_page(configs)
     generate_org_readme(configs)
+    generate_appliances_page(configs)
 
     print(f"\nGenerated {len(configs)} image docs")
 
