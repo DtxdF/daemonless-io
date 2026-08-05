@@ -1201,6 +1201,14 @@ placeholders:
   VICTORIAMETRICS_CONFIG_PATH:
     default: victoriametrics
     description: VictoriaMetrics /config Path
+  NOCODB_PORT:
+    default: '8080'
+    description: NocoDB Host Port
+    validators:
+    - port_number
+  NOCODB_CONFIG_PATH:
+    default: nocodb
+    description: NocoDB /config Path
 validators:
   port_number:
     name: Port Number
