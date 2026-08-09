@@ -1209,6 +1209,14 @@ placeholders:
   NOCODB_CONFIG_PATH:
     default: nocodb
     description: NocoDB /config Path
+  BASE_MANIFEST_TEST_PORT:
+    default: '8080'
+    description: Base Manifest Test Host Port
+    validators:
+    - port_number
+  BASE_MANIFEST_TEST_CONFIG_PATH:
+    default: base-manifest-test
+    description: Base Manifest Test /config Path
 validators:
   port_number:
     name: Port Number
