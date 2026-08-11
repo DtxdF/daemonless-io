@@ -96,10 +96,15 @@ def get_deployed_versions(package: str, variant: str = None) -> dict:
                         deployed["pkg"] = t.removesuffix("-pkg")
                         break
             if "latest" in tags and "latest" not in deployed:
+                # Require a "." so a bare variant identifier co-located with
+                # latest (e.g. jellyfin-ffmpeg's "7"/"8" major-version tags)
+                # can't be mistaken for the actual version -- every real
+                # version tag in this fleet has a dot, variant IDs don't.
                 for t in tags:
                     if (t not in ("latest", "pkg", "pkg-latest")
                             and not t.endswith(("-pkg", "-pkg-latest"))
-                            and not t.endswith(ARCH_SUFFIXES)):
+                            and not t.endswith(ARCH_SUFFIXES)
+                            and "." in t):
                         deployed["latest"] = t
                         break
             # 'latest' is a pkg alias when it shares a digest with pkg/pkg-latest
