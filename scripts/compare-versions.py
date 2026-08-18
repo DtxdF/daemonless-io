@@ -1,285 +1,264 @@
 #!/usr/bin/env python3
 """
-Compare daemonless-versions.json against deployed ghcr.io tags.
-Outputs JSON with outdated, current, errors, and summary.
+Compare daemonless-versions.json against what's actually published on ghcr.io.
+
+Per-arch and label-based. The deployed version of every image is read from its
+OCI `org.opencontainers.image.version` label, per architecture, by walking the
+manifest list -- never parsed from tag names. Upstream targets come from
+daemonless-versions.json:
+
+  schema_version 2 : `pkg`/`pkg-latest` are {arch: version}; compared arch-for-arch.
+  schema_version 1 : `pkg`/`pkg-latest` are scalars (amd64); compared against amd64.
+  `upstream` (a binary release version) is always scalar and applies to every
+  published arch.
+
+Comparing each arch against the same arch means FreeBSD's aarch64 pkg lag (its
+builder routinely trails amd64 on PORTREVISION bumps) no longer false-flags an
+image as outdated, while a genuine per-arch miss still does.
+
+Output JSON (contract consumed by version-status.mkdocs.j2 + the Discord notify):
+  outdated   : [{name, updates: [{tag, arch, available, deployed}]}]
+  current    : [name, ...]
+  errors     : [{name, error}]
+  warnings   : [{name, tag, reason}]
+  deployed   : {name: {tag: display_version}}     # display = amd64 (or first) arch
+  base_names : {name: base_repo}
+  summary    : {current_count, outdated_count, error_count, warning_count}
 """
 
 import json
+import os
+import re
 import subprocess
 import sys
-import re
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 VERSIONS_FILE = Path(__file__).parent.parent / "daemonless-versions.json"
 ORG = "daemonless"
 
-def get_deployed_versions(package: str, variant: str = None) -> dict:
-    """Get currently deployed versions from ghcr.io tags.
+# OCI reports FreeBSD arm64 as "arm64"; FreeBSD pkg repos call it "aarch64".
+# daemonless-versions.json uses the pkg spelling, so normalise everything to it.
+OCI_TO_PKG = {"amd64": "amd64", "arm64": "aarch64", "riscv64": "riscv64"}
 
-    If variant is specified (e.g., "14" for postgres), only look for tags
-    matching that variant (14-pkg, 14-pkg-latest, 14.x.x).
+
+def _sh(cmd):
+    return subprocess.run(cmd, shell=True, capture_output=True, text=True).stdout
+
+
+# --------------------------------------------------------------------------
+# deployed: OCI version label, per arch, from the manifest list. No tag parsing.
+# --------------------------------------------------------------------------
+_deployed_cache = {}
+
+
+def deployed_versions(repo, tag):
+    """{pkg_arch: version} from each per-arch image's OCI version label.
+
+    Empty dict means the tag doesn't exist on ghcr (or carries no version label).
     """
-    try:
-        # Get all version info with tags grouped
-        result = subprocess.run(
-            ["gh", "api", "--paginate", f"/orgs/{ORG}/packages/container/{package}/versions",
-             "--jq", '.[] | {tags: .metadata.container.tags}'],
-            capture_output=True, text=True, check=True
-        )
-        lines = result.stdout.strip().split("\n") if result.stdout.strip() else []
-    except subprocess.CalledProcessError:
-        return {}
+    key = (repo, tag)
+    if key in _deployed_cache:
+        return _deployed_cache[key]
 
-    deployed = {}
-    latest_is_pkg = False  # Track if 'latest' is aliased to a pkg build
-    all_tags = set()       # Flat union of every tag across all digests
-    ARCH_SUFFIXES = ("-aarch64", "-riscv64")
+    base = f"ghcr.io/{ORG}/{repo}"
+    result = {}
 
-    for line in lines:
-        if not line.strip():
-            continue
+    def label_of(ref):
         try:
-            data = json.loads(line)
-            tags = data.get("tags", [])
+            cfg = json.loads(_sh(f"skopeo inspect docker://{ref}") or "{}")
         except json.JSONDecodeError:
-            continue
+            return None, None
+        return cfg.get("Architecture"), (cfg.get("Labels") or {}).get(
+            "org.opencontainers.image.version"
+        )
 
-        all_tags.update(tags)
+    try:
+        raw = json.loads(_sh(f"skopeo inspect --raw docker://{base}:{tag}") or "{}")
+    except json.JSONDecodeError:
+        raw = {}
 
-        if variant:
-            # Multi-version mode: discover all build types by scanning for {variant}-*
-            # alias tags, then read the version from the co-located version tag.
-            # Works for both postgres-style (14.22-14-pkg, alias=14-pkg) and
-            # samba-style (4.16.11_10-pkg, alias=416-pkg; 4.22.7_1-422-pkg-krb, alias=422-pkg-krb).
-            prefix = f"{variant}-"
-            for tag in tags:
-                if not tag.startswith(prefix):
-                    continue
-                build_type = tag[len(prefix):]  # "pkg", "pkg-latest", "pkg-krb", etc.
-                if build_type in deployed:
-                    continue
-                alias = tag
-                suffix = f"-{alias}"  # e.g. "-422-pkg-krb"
-                # Primary: version tag embeds variant (e.g. 4.22.7_1-422-pkg-krb)
-                for t in tags:
-                    if t != alias and t.endswith(suffix):
-                        deployed[build_type] = t[:-len(suffix)]
-                        break
-                # Fallback 1: variant is an alias for a plain-named tag
-                # (e.g. 4.16.11_10-pkg when alias is 416-pkg, variant tag is pkg)
-                if build_type not in deployed:
-                    plain_suffix = f"-{build_type}"
-                    for t in tags:
-                        if t != alias and t not in (build_type, "latest") and t.endswith(plain_suffix):
-                            deployed[build_type] = t.removesuffix(plain_suffix)
-                            break
-                # Fallback 2: version tag ends in just the variant id, not the full alias
-                # (e.g. postgres: alias=14-pkg, version tag=14.22-14, ends in "-14" not "-14-pkg")
-                if build_type not in deployed:
-                    id_suffix = f"-{variant}"
-                    for t in tags:
-                        if t != alias and t not in (build_type, "latest", variant) and t.endswith(id_suffix):
-                            deployed[build_type] = t[:-len(id_suffix)]
-                            break
-        else:
-            # Pass 1 (per-digest co-location): read the version tag that shares a
-            # digest with the alias. Correct for single-arch and immune to stray
-            # version tags on other digests (e.g. a bogus "15.0-RELEASE").
-            if "pkg-latest" in tags and "pkg-latest" not in deployed:
-                for t in tags:
-                    if t != "pkg-latest" and t.endswith("-pkg-latest"):
-                        deployed["pkg-latest"] = t.removesuffix("-pkg-latest")
-                        break
-            if "pkg" in tags and "pkg" not in deployed:
-                for t in tags:
-                    if t != "pkg" and t.endswith("-pkg") and not t.endswith("-pkg-latest"):
-                        deployed["pkg"] = t.removesuffix("-pkg")
-                        break
-            if "latest" in tags and "latest" not in deployed:
-                # Require a "." so a bare variant identifier co-located with
-                # latest (e.g. jellyfin-ffmpeg's "7"/"8" major-version tags)
-                # can't be mistaken for the actual version -- every real
-                # version tag in this fleet has a dot, variant IDs don't.
-                for t in tags:
-                    if (t not in ("latest", "pkg", "pkg-latest")
-                            and not t.endswith(("-pkg", "-pkg-latest"))
-                            and not t.endswith(ARCH_SUFFIXES)
-                            and "." in t):
-                        deployed["latest"] = t
-                        break
-            # 'latest' is a pkg alias when it shares a digest with pkg/pkg-latest
-            # (survives multi-arch: both ride the manifest digest).
-            if "latest" in tags and (
-                "pkg" in tags
-                or "pkg-latest" in tags
-                or any(t.endswith(("-pkg", "-pkg-latest")) for t in tags)
-            ):
-                latest_is_pkg = True
+    manifests = raw.get("manifests")
+    if manifests:  # multi-arch manifest list -> read each per-arch image's label
+        for m in manifests:
+            plat = m.get("platform", {})
+            arch = plat.get("architecture")
+            if plat.get("os") != "freebsd" or arch not in OCI_TO_PKG:
+                continue  # skip attestations / non-freebsd entries
+            _, ver = label_of(f"{base}@{m['digest']}")
+            if ver:
+                result[OCI_TO_PKG[arch]] = ver
+    else:  # single-arch image (or tag missing -> empty label)
+        arch, ver = label_of(f"{base}:{tag}")
+        if arch in OCI_TO_PKG and ver:
+            result[OCI_TO_PKG[arch]] = ver
 
-    if not variant:
-        # Pass 2 (cross-digest fallback) for multi-arch manifests: the alias rides
-        # the manifest digest while the `<ver>-pkg` tag sits on a per-arch image
-        # digest, so pass-1 co-location found nothing. Only fills build types still
-        # missing; picks the highest matching version. No bare-`latest` fallback —
-        # pass 1 already handles single-arch `latest`, and matching bare tags across
-        # digests would risk grabbing a stray like "15.0-RELEASE".
-        def _best(suffix: str) -> str:
-            cands = [
-                t.removesuffix(suffix)
-                for t in all_tags
-                if t not in ("pkg", "pkg-latest", "latest")
-                and t.endswith(suffix)
-                and not t.endswith(ARCH_SUFFIXES)
-            ]
-            if not cands:
-                return None
-            try:
-                return max(cands, key=parse_version_tuple)
-            except TypeError:
-                return cands[0]
-
-        if "pkg-latest" in all_tags and "pkg-latest" not in deployed:
-            v = _best("-pkg-latest")
-            if v is not None:
-                deployed["pkg-latest"] = v
-        if "pkg" in all_tags and "pkg" not in deployed:
-            v = _best("-pkg")  # `<ver>-pkg-latest` ends in `-latest`, won't match
-            if v is not None:
-                deployed["pkg"] = v
-
-        # If latest is just an alias to pkg, don't track it separately
-        if latest_is_pkg:
-            deployed.pop("latest", None)
-
-    return deployed
+    _deployed_cache[key] = result
+    return result
 
 
-def normalize_version(v: str) -> str:
-    """Normalize version for comparison (strip 'v' prefix, handle epoch commas, etc)."""
+# --------------------------------------------------------------------------
+# version comparison (FreeBSD X.Y.Z_PORTREVISION aware)
+# --------------------------------------------------------------------------
+def normalize_version(v):
     if not v:
         return ""
-    v = v.lstrip("v")
-    # Convert commas to underscores (OCI tags can't have commas)
-    v = v.replace(",", "_")
-    return v
+    return v.lstrip("v").replace(",", "_")
 
 
-def parse_version_tuple(v: str):
-    """Parse a version string into a comparable tuple.
-
-    Handles FreeBSD pkg versioning: X.Y.Z_PORTREVISION
-    e.g. "4.23.6_1" -> ((4, 23, 6), 1)
-         "4.23.7"   -> ((4, 23, 7), 0)
-    """
+def parse_version_tuple(v):
     v = normalize_version(v)
     revision = 0
     if "_" in v:
         v, rev = v.rsplit("_", 1)
-        try:
+        if rev.isdigit():
             revision = int(rev)
-        except ValueError:
-            pass
     parts = []
     for part in re.split(r"[.\-]", v):
-        try:
-            parts.append(int(part))
-        except ValueError:
-            parts.append(part)
+        parts.append(int(part) if part.isdigit() else part)
     return (parts, revision)
 
 
-def versions_match(available: str, deployed: str) -> bool:
-    """Return True if versions match or deployed is already newer than available."""
-    a = normalize_version(available)
-    d = normalize_version(deployed)
-    if a == d:
-        return True
-    # If what's deployed is already newer, don't flag as outdated
+def is_newer(available, deployed):
+    """True iff `available` is strictly newer than `deployed`.
+
+    Equal, deployed-ahead, or not confidently orderable -> not outdated (quiet).
+    """
+    a, d = normalize_version(available), normalize_version(deployed)
+    if not a or a == d:
+        return False
     try:
-        if parse_version_tuple(d) > parse_version_tuple(a):
-            return True
-    except Exception:
-        pass
-    return False
+        return parse_version_tuple(a) > parse_version_tuple(d)
+    except TypeError:
+        return False
 
 
+# --------------------------------------------------------------------------
+# upstream target normalisation + registry-tag derivation
+# --------------------------------------------------------------------------
+def upstream_map(entry, is_binary, deployed_arches):
+    """Normalise a versions.json entry to {arch: version}.
+
+    - dict            -> schema-2 per-arch pkg target, used as-is.
+    - scalar + binary -> a release version; applies to every published arch.
+    - scalar + pkg    -> schema-1 amd64-only target.
+    """
+    if isinstance(entry, dict):
+        return dict(entry)
+    if is_binary:
+        return {arch: entry for arch in deployed_arches}
+    return {"amd64": entry}
+
+
+def registry_tags(variant, build_type):
+    """Ordered candidate registry tags for a (variant, build_type); the first
+    that resolves on ghcr wins. We don't assume a "-pkg" suffix: for a
+    multi-version image's base pkg flavor we also try the bare variant tag,
+    because some images publish it that way (cnpg-postgres "17"/"17-standard",
+    not "17-pkg") while others alias to "17-pkg". Non-base flavors
+    (pkg-latest, pkg-krb, ...) keep their explicit suffix so we never mistake
+    them for the base tag.
+    """
+    if build_type == "upstream":
+        return [f"{variant}-latest"] if variant else ["latest"]
+    if not variant:
+        return [build_type]  # plain image: "pkg" / "pkg-latest"
+    tags = [f"{variant}-{build_type}"]
+    if build_type == "pkg":
+        tags.append(variant)  # base flavor may be published as the bare tag
+    return tags
+
+
+def check_service(name, versions):
+    """Compare one (expanded) service against ghcr. Pure per-image work so it
+    can run in a thread pool -- each call only does independent skopeo reads."""
+    base = versions.get("_base_name", name)
+    variant = versions.get("_variant")
+    broken = versions.get("_broken", [])
+
+    # Build types to check: every non-meta key except `upstream`, which is
+    # tracked under the `latest` display tag.
+    checks = [
+        (bt, bt, False)
+        for bt in versions
+        if not bt.startswith("_") and bt not in ("upstream", "type")
+    ]
+    if "upstream" in versions:
+        checks.append(("latest", "upstream", True))
+
+    display, updates, warns, saw_any = {}, [], [], False
+    for tag_key, entry_key, is_binary in checks:
+        dep = {}
+        for cand in registry_tags(variant, entry_key):
+            dep = deployed_versions(base, cand)
+            if dep:
+                break
+        if not dep:
+            continue  # this variant/arch isn't published
+        saw_any = True
+        display[tag_key] = dep.get("amd64") or next(iter(dep.values()))
+
+        if tag_key in broken:
+            warns.append({"name": name, "tag": tag_key, "reason": "build broken"})
+            continue
+
+        up = upstream_map(versions[entry_key], is_binary, list(dep))
+        for arch in sorted(dep):
+            target = up.get(arch)
+            if target and is_newer(target, dep[arch]):
+                updates.append(
+                    {"tag": tag_key, "arch": arch,
+                     "available": target, "deployed": dep[arch]}
+                )
+
+    return {"name": name, "base": base, "display": display,
+            "updates": updates, "warnings": warns, "saw_any": saw_any}
+
+
+# --------------------------------------------------------------------------
 def main():
-    outdated = []
-    current = []
-    errors = []
-    warnings = []
-    deployed_all = {}  # name -> {tag: version} for all services
-    base_names = {}   # name -> base repo name (for multi-variant images)
-
-    with open(VERSIONS_FILE) as f:
-        data = json.load(f)
-
+    data = json.loads(VERSIONS_FILE.read_text())
     services = data.get("services", {})
 
-    # Expand multi-version services into separate entries
-    expanded_services = {}
+    # Expand multi-version services into per-variant entries (postgres-14, ...),
+    # tracking the base repo so the renderer can group + link them.
+    expanded = {}
     for name, versions in services.items():
         if versions.get("type") == "multi-version":
-            # Expand variants into separate entries (e.g., postgres-14, postgres-17)
-            for variant_id, variant_versions in versions.get("variants", {}).items():
-                expanded_name = f"{name}-{variant_id}"
-                expanded_services[expanded_name] = {
-                    "_base_name": name,
-                    "_variant": variant_id,
-                    **variant_versions
-                }
-            # Also expand top-level pkg/pkg-latest as a plain base entry
-            base = {k: v for k, v in versions.items()
-                    if k not in ("type", "variants", "default", "upstream") and not k.startswith("_")}
+            for vid, vv in versions.get("variants", {}).items():
+                expanded[f"{name}-{vid}"] = {"_base_name": name, "_variant": vid, **vv}
+            base = {
+                k: v
+                for k, v in versions.items()
+                if k not in ("type", "variants", "default", "upstream")
+                and not k.startswith("_")
+            }
             if base:
                 entry = base.copy()
                 if "upstream" in versions:
                     entry["upstream"] = versions["upstream"]
-                expanded_services[name] = entry
+                expanded[name] = entry
         else:
-            expanded_services[name] = versions
+            expanded[name] = versions
 
-    for name, versions in sorted(expanded_services.items()):
-        base_name = versions.get("_base_name", name)
-        variant = versions.get("_variant")
+    # Each service is independent I/O (skopeo reads) -> run them concurrently.
+    # ThreadPoolExecutor.map preserves input order, so output stays deterministic.
+    workers = int(os.environ.get("COMPARE_WORKERS", "12"))
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        results = list(pool.map(lambda kv: check_service(*kv), sorted(expanded.items())))
 
-        deployed = get_deployed_versions(base_name, variant)
-        deployed_all[name] = deployed
-        base_names[name] = base_name
-
-        if not deployed:
-            errors.append({"name": name, "error": "No tags found in ghcr.io"})
+    outdated, current, errors, warnings = [], [], [], []
+    deployed_all, base_names = {}, {}
+    for r in results:
+        name = r["name"]
+        base_names[name] = r["base"]
+        warnings.extend(r["warnings"])
+        if not r["saw_any"]:
+            errors.append({"name": name, "error": "No published tags found on ghcr.io"})
             continue
-
-        service_outdated = []
-        broken = versions.get("_broken", [])
-
-        # Check all tracked build types
-        for build_type, available in versions.items():
-            if build_type.startswith("_") or build_type == "upstream":
-                continue
-            if build_type in broken:
-                warnings.append({"name": name, "tag": build_type, "reason": "build broken"})
-                continue
-            if build_type in deployed:
-                if not versions_match(available, deployed[build_type]):
-                    service_outdated.append({
-                        "tag": build_type,
-                        "available": available,
-                        "deployed": deployed[build_type]
-                    })
-
-        # Check upstream (latest tag)
-        if "upstream" in versions and "latest" in deployed:
-            if not versions_match(versions["upstream"], deployed["latest"]):
-                service_outdated.append({
-                    "tag": "latest",
-                    "available": versions["upstream"],
-                    "deployed": deployed["latest"]
-                })
-
-        if service_outdated:
-            outdated.append({"name": name, "updates": service_outdated})
+        deployed_all[name] = r["display"]
+        if r["updates"]:
+            outdated.append({"name": name, "updates": r["updates"]})
         else:
             current.append(name)
 
@@ -287,6 +266,7 @@ def main():
     outdated_tags = sum(len(item["updates"]) for item in outdated)
 
     print(json.dumps({
+        "schema_version": data.get("schema_version", 1),
         "outdated": outdated,
         "current": current,
         "errors": errors,
@@ -297,8 +277,8 @@ def main():
             "current_count": total_tags - outdated_tags,
             "outdated_count": outdated_tags,
             "error_count": len(errors),
-            "warning_count": len(warnings)
-        }
+            "warning_count": len(warnings),
+        },
     }, indent=2))
 
     sys.exit(1 if outdated else 0)
