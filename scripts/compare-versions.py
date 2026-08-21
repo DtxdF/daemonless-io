@@ -202,6 +202,14 @@ def check_service(name, versions):
             warns.append({"name": name, "tag": tag_key, "reason": "build broken"})
             continue
 
+        # `latest` aliased to a pkg build (deployed version matches a pkg tag)
+        # tracks the FreeBSD package, not the binary `upstream` -- skip that
+        # comparison; the pkg tag's own check covers it. (e.g. emby pins :latest=:pkg)
+        if is_binary and display.get("latest") in [
+            v for v in (display.get("pkg"), display.get("pkg-latest")) if v
+        ]:
+            continue
+
         up = upstream_map(versions[entry_key], is_binary, list(dep))
         for arch in sorted(dep):
             target = up.get(arch)
