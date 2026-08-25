@@ -1217,6 +1217,14 @@ placeholders:
   BASE_MANIFEST_TEST_CONFIG_PATH:
     default: base-manifest-test
     description: Base Manifest Test /config Path
+  SYLVE_PORT:
+    default: '8181'
+    description: Sylve Host Port
+    validators:
+    - port_number
+  SYLVE_SYLVE_PATH:
+    default: sylve/sylve
+    description: Sylve /var/db/sylve Path
 validators:
   port_number:
     name: Port Number
